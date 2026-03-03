@@ -1,0 +1,6 @@
+parameters:
+    ignoreErrors:
+        -
+            message: "#^Parameter \\#1 \\$view of function view expects view\\-string\\|null, string given\\.$#"
+            count: 1
+            path: src/Http/Controllers/DashboardController.php

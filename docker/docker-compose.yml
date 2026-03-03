@@ -1,0 +1,15 @@
+services:
+  health-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8877:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 512M
+        reservations:
+          memory: 256M
+    container_name: health-test
