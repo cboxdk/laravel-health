@@ -22,6 +22,7 @@ final class DashboardController
             'readiness' => $readiness,
             'systemMetrics' => $metricsService->collect(),
             'prefix' => config('health.endpoints.prefix', 'health'),
+            'hostname' => gethostname() ?: null,
         ]);
     }
 }

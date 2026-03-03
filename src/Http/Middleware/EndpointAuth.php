@@ -34,7 +34,7 @@ final class EndpointAuth
             /** @var string|null $requestToken */
             $requestToken = $request->query('token') ?? $request->bearerToken();
 
-            if ($requestToken === $configToken) {
+            if ($requestToken !== null && hash_equals($configToken, $requestToken)) {
                 return $next($request);
             }
         }

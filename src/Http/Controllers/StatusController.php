@@ -27,6 +27,7 @@ final class StatusController
                 'name' => config('app.name'),
                 'environment' => app()->environment(),
                 'debug' => config('app.debug'),
+                'hostname' => gethostname() ?: null,
                 'php_version' => PHP_VERSION,
                 'laravel_version' => app()->version(),
             ],

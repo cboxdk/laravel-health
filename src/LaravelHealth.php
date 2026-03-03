@@ -7,7 +7,7 @@ namespace Cbox\LaravelHealth;
 use Closure;
 use Illuminate\Http\Request;
 
-class LaravelHealth
+final class LaravelHealth
 {
     /**
      * The callback that should be used to authenticate health check users.
@@ -19,7 +19,7 @@ class LaravelHealth
      */
     public function check(Request $request): bool
     {
-        return (static::$authUsing ?? function (): bool {
+        return (self::$authUsing ?? function (): bool {
             return app()->environment('local');
         })($request);
     }
@@ -29,7 +29,7 @@ class LaravelHealth
      */
     public static function auth(Closure $callback): self
     {
-        static::$authUsing = $callback;
+        self::$authUsing = $callback;
 
         return new self;
     }

@@ -17,6 +17,10 @@
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Health Dashboard</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                @if($hostname)
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">{{ $hostname }}</span>
+                    &middot;
+                @endif
                 Last updated: <span id="last-updated">{{ now()->format('H:i:s') }}</span>
                 <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" id="auto-refresh-badge">
                     Auto-refresh: 10s

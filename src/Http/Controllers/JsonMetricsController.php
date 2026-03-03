@@ -11,6 +11,9 @@ final class JsonMetricsController
 {
     public function __invoke(SystemMetricsService $metricsService): JsonResponse
     {
-        return new JsonResponse($metricsService->collect());
+        $metrics = $metricsService->collect();
+        $metrics['hostname'] = gethostname() ?: null;
+
+        return new JsonResponse($metrics);
     }
 }
