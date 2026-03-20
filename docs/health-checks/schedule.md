@@ -18,14 +18,22 @@ Checks for a heartbeat timestamp in cache to verify the scheduler is active.
 
 ## Setup
 
-Add a heartbeat command to your scheduler in `app/Console/Kernel.php` or `routes/console.php`:
+Schedule the built-in heartbeat command in your `routes/console.php`:
+
+```php
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command('health:heartbeat')->everyMinute();
+```
+
+Or if you prefer a manual approach:
 
 ```php
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::call(function () {
-    Cache::put('health:schedule:heartbeat', now()->timestamp, 600);
+    Cache::put('health:schedule:heartbeat', now(), 600);
 })->everyMinute();
 ```
 
