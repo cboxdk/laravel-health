@@ -95,7 +95,6 @@ return [
             'namespace' => env('HEALTH_PROMETHEUS_NAMESPACE', 'app'),
         ],
         'system' => [
-            'cpu' => true,
             'memory' => true,
             'load' => true,
             'storage' => true,
