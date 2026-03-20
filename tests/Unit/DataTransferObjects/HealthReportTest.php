@@ -69,3 +69,27 @@ it('converts to array', function (): void {
         ->and($array['checks'])->toHaveKey('database')
         ->and($array['checks']['database']['status'])->toBe('ok');
 });
+
+it('handles duplicate check names by appending a suffix', function (): void {
+    $results = [
+        CheckResult::ok('database', 'Primary OK')->withDuration(1.0),
+        CheckResult::ok('database', 'Replica OK')->withDuration(2.0),
+        CheckResult::ok('database', 'Analytics OK')->withDuration(3.0),
+    ];
+
+    $report = new HealthReport(
+        type: EndpointType::Readiness,
+        status: Status::Ok,
+        results: $results,
+        totalDurationMs: 6.0,
+        checkedAt: new DateTimeImmutable('2024-01-01 12:00:00'),
+    );
+
+    $array = $report->toArray();
+
+    expect($array['checks'])->toHaveCount(3)
+        ->toHaveKeys(['database', 'database_2', 'database_3'])
+        ->and($array['checks']['database']['message'])->toBe('Primary OK')
+        ->and($array['checks']['database_2']['message'])->toBe('Replica OK')
+        ->and($array['checks']['database_3']['message'])->toBe('Analytics OK');
+});

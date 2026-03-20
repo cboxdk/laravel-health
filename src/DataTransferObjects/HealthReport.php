@@ -33,7 +33,15 @@ final readonly class HealthReport
     {
         $checks = [];
         foreach ($this->results as $result) {
-            $checks[$result->name] = $result->toArray();
+            $key = $result->name;
+            if (isset($checks[$key])) {
+                $i = 2;
+                while (isset($checks["{$key}_{$i}"])) {
+                    $i++;
+                }
+                $key = "{$key}_{$i}";
+            }
+            $checks[$key] = $result->toArray();
         }
 
         return [
