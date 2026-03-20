@@ -41,3 +41,8 @@ it('supports endpoint filter option', function (): void {
     $this->artisan('health:check', ['--endpoint' => 'liveness'])
         ->assertExitCode(0);
 });
+
+it('exits with 1 for invalid endpoint', function (): void {
+    $this->artisan('health:check', ['--endpoint' => 'invalid'])
+        ->assertExitCode(1);
+});

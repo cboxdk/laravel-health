@@ -17,6 +17,11 @@ final class HealthCheckCommand extends Command
     public function handle(HealthCheckRunner $runner): int
     {
         $endpoints = $this->getEndpoints();
+
+        if ($endpoints === []) {
+            return self::FAILURE;
+        }
+
         $hasFailure = false;
 
         foreach ($endpoints as $endpoint) {
@@ -55,7 +60,16 @@ final class HealthCheckCommand extends Command
         $endpoint = $this->option('endpoint');
 
         if ($endpoint !== null) {
-            return [EndpointType::from($endpoint)];
+            $type = EndpointType::tryFrom($endpoint);
+
+            if ($type === null) {
+                $valid = implode(', ', array_map(fn (EndpointType $t): string => $t->value, EndpointType::cases()));
+                $this->components->error("Invalid endpoint '{$endpoint}'. Valid options: {$valid}");
+
+                return [];
+            }
+
+            return [$type];
         }
 
         return [EndpointType::Liveness, EndpointType::Readiness];
