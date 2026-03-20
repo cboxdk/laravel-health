@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.0.1 - 2026-03-20
+
+### Fixed
+- Use `environment->containerization->insideContainer` for the `containerized` flag in system metrics instead of `SystemLimits::isContainerized()`. The cgroup source alone is unreliable on modern Linux where cgroup v2 is default even on VMs.
+
 ## 1.0.0 - 2026-03-20
 
 ### Added
