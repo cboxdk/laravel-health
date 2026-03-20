@@ -113,3 +113,41 @@ it('determines worst status across checks', function (): void {
     expect($report->status)->toBe(Status::Critical)
         ->and($report->results)->toHaveCount(2);
 });
+
+it('returns critical for nonexistent check class', function (): void {
+    config()->set('health.checks.liveness', ['App\\NonExistent\\FakeCheck']);
+
+    $runner = app(HealthCheckRunner::class);
+    $report = $runner->run(EndpointType::Liveness);
+
+    expect($report->status)->toBe(Status::Critical)
+        ->and($report->results)->toHaveCount(1)
+        ->and($report->results[0]->message)->toContain('not found');
+});
+
+it('returns critical when check class does not implement contract', function (): void {
+    $notACheck = new class
+    {
+        // Does NOT implement HealthCheck
+    };
+
+    config()->set('health.checks.liveness', [$notACheck::class]);
+    app()->bind($notACheck::class, fn () => $notACheck);
+
+    $runner = app(HealthCheckRunner::class);
+    $report = $runner->run(EndpointType::Liveness);
+
+    expect($report->status)->toBe(Status::Critical)
+        ->and($report->results[0]->message)->toContain('HealthCheck contract');
+});
+
+it('survives cache failure gracefully', function (): void {
+    config()->set('health.cache.enabled', true);
+    config()->set('health.cache.store', 'nonexistent_store');
+    config()->set('health.checks.liveness', []);
+
+    $runner = app(HealthCheckRunner::class);
+    $report = $runner->run(EndpointType::Liveness);
+
+    expect($report->status)->toBe(Status::Ok);
+});
