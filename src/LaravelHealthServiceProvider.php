@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth;
 
+use Cbox\LaravelHealth\Commands\HealthCheckCommand;
 use Cbox\LaravelHealth\Config\HealthConfig;
 use Cbox\LaravelHealth\Services\HealthCheckRunner;
 use Cbox\LaravelHealth\Services\PrometheusRenderer;
@@ -19,7 +20,8 @@ final class LaravelHealthServiceProvider extends PackageServiceProvider
             ->name('health')
             ->hasConfigFile('health')
             ->hasRoute('health')
-            ->hasViews('health');
+            ->hasViews('health')
+            ->hasCommand(HealthCheckCommand::class);
     }
 
     public function packageRegistered(): void
