@@ -26,3 +26,9 @@ it('handles mixed exact and CIDR entries', function (): void {
 it('returns false for empty allowlist', function (): void {
     expect(AllowIps::ipMatches('10.0.0.1', []))->toBeFalse();
 });
+
+it('rejects malformed CIDR prefix', function (): void {
+    expect(AllowIps::ipMatches('10.0.0.1', ['10.0.0.0/abc']))->toBeFalse()
+        ->and(AllowIps::ipMatches('10.0.0.1', ['10.0.0.0/']))->toBeFalse()
+        ->and(AllowIps::ipMatches('10.0.0.1', ['10.0.0.0/2a']))->toBeFalse();
+});

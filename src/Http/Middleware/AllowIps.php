@@ -68,6 +68,10 @@ final class AllowIps
 
         [$subnet, $prefixLength] = $parts;
 
+        if (! ctype_digit($prefixLength)) {
+            return false;
+        }
+
         $prefixLength = (int) $prefixLength;
         if ($prefixLength < 0 || $prefixLength > 32) {
             return false;
