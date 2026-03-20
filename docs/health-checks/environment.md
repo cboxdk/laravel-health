@@ -14,7 +14,6 @@ Verifies that all required environment variables are present.
 'checks_config' => [
     'environment' => [
         'required' => ['APP_KEY', 'DB_HOST', 'REDIS_HOST'],
-        'optional' => [],
     ],
 ],
 ```

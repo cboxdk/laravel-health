@@ -21,7 +21,7 @@ curl http://localhost/health
 
 - **Kubernetes Probes** — liveness, readiness, and startup endpoints out of the box
 - **Prometheus Metrics** — `/health/metrics` with health check status and system metrics
-- **11 Built-in Checks** — database, cache, queue, storage, Redis, environment, schedule, CPU, memory, disk space
+- **10 Built-in Checks** — database, cache, queue, storage, Redis, environment, schedule, CPU, memory, disk space
 - **System Metrics** — CPU load, memory, disk, network via [cboxdk/system-metrics](https://github.com/cboxdk/system-metrics)
 - **Container Aware** — automatic cgroup detection for Docker/Kubernetes
 - **JSON Metrics API** — structured system metrics at `/health/metrics/json`

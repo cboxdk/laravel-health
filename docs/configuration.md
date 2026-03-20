@@ -81,7 +81,7 @@ Each probe runs its own set of checks. Liveness should only contain checks where
     'queue'       => ['connection' => null],
     'storage'     => ['disk' => 'local'],
     'redis'       => ['connection' => 'default'],
-    'environment' => ['required' => [], 'optional' => []],
+    'environment' => ['required' => []],
     'schedule'    => ['max_age_minutes' => 5],
 ],
 ```
@@ -97,7 +97,6 @@ Each probe runs its own set of checks. Liveness should only contain checks where
         'namespace' => env('HEALTH_PROMETHEUS_NAMESPACE', 'app'),
     ],
     'system' => [
-        'cpu'     => true,
         'memory'  => true,
         'load'    => true,
         'storage' => true,
