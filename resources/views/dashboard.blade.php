@@ -367,27 +367,11 @@
 
     <script>
         (function() {
-            const prefix = @json($prefix);
             const refreshInterval = 10000;
 
-            async function refresh() {
-                try {
-                    const tokenMatch = window.location.search.match(/[?&]token=([^&]+)/);
-                    const tokenParam = tokenMatch ? '?token=' + tokenMatch[1] : '';
-
-                    const response = await fetch('/' + prefix + '/status' + tokenParam);
-                    if (!response.ok) return;
-
-                    const data = await response.json();
-                    document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
-
-                    // Could enhance with full DOM update here
-                } catch (e) {
-                    // Silently fail, will retry on next interval
-                }
-            }
-
-            setInterval(refresh, refreshInterval);
+            setTimeout(function() {
+                window.location.reload();
+            }, refreshInterval);
         })();
     </script>
 </body>
