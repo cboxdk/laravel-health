@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Cbox\LaravelHealth\Contracts\HealthCheck;
+use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Cbox\LaravelHealth\LaravelHealth;
 
 beforeEach(function (): void {
@@ -27,16 +29,16 @@ it('returns 200 when all startup checks pass', function (): void {
 });
 
 it('returns 503 when startup checks fail', function (): void {
-    $failingCheck = new class implements \Cbox\LaravelHealth\Contracts\HealthCheck
+    $failingCheck = new class implements HealthCheck
     {
         public function name(): string
         {
             return 'startup_failing';
         }
 
-        public function run(): \Cbox\LaravelHealth\DataTransferObjects\CheckResult
+        public function run(): CheckResult
         {
-            return \Cbox\LaravelHealth\DataTransferObjects\CheckResult::critical('startup_failing', 'Not ready');
+            return CheckResult::critical('startup_failing', 'Not ready');
         }
     };
 

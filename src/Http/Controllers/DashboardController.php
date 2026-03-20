@@ -16,7 +16,7 @@ final class DashboardController
         $liveness = $runner->run(EndpointType::Liveness);
         $readiness = $runner->run(EndpointType::Readiness);
 
-        /** @var \Illuminate\View\View */
+        /** @var View */
         return view('health::dashboard', [
             'liveness' => $liveness,
             'readiness' => $readiness,

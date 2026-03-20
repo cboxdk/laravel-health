@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Cbox\LaravelHealth\Contracts\HealthCheck;
+use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Cbox\LaravelHealth\LaravelHealth;
 use Cbox\LaravelHealth\Services\SystemMetricsService;
 
@@ -59,16 +61,16 @@ it('includes app metadata', function (): void {
 });
 
 it('reflects worst readiness status', function (): void {
-    $failingCheck = new class implements \Cbox\LaravelHealth\Contracts\HealthCheck
+    $failingCheck = new class implements HealthCheck
     {
         public function name(): string
         {
             return 'failing';
         }
 
-        public function run(): \Cbox\LaravelHealth\DataTransferObjects\CheckResult
+        public function run(): CheckResult
         {
-            return \Cbox\LaravelHealth\DataTransferObjects\CheckResult::critical('failing', 'Down');
+            return CheckResult::critical('failing', 'Down');
         }
     };
 

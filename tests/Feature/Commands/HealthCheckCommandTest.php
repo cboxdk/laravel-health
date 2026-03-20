@@ -1,6 +1,8 @@
 <?php
 
 declare(strict_types=1);
+use Cbox\LaravelHealth\Contracts\HealthCheck;
+use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 
 it('exits with 0 when all checks pass', function (): void {
     config()->set('health.checks.liveness', []);
@@ -12,16 +14,16 @@ it('exits with 0 when all checks pass', function (): void {
 });
 
 it('exits with 1 when checks fail', function (): void {
-    $failingCheck = new class implements \Cbox\LaravelHealth\Contracts\HealthCheck
+    $failingCheck = new class implements HealthCheck
     {
         public function name(): string
         {
             return 'failing';
         }
 
-        public function run(): \Cbox\LaravelHealth\DataTransferObjects\CheckResult
+        public function run(): CheckResult
         {
-            return \Cbox\LaravelHealth\DataTransferObjects\CheckResult::critical('failing', 'Service down');
+            return CheckResult::critical('failing', 'Service down');
         }
     };
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cbox\LaravelHealth\Checks;
 
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Throwable;
 
@@ -22,7 +23,7 @@ final class ScheduleCheck extends BaseCheck
             /** @var int $maxAgeMinutes */
             $maxAgeMinutes = config('health.checks_config.schedule.max_age_minutes', 5);
 
-            /** @var \Illuminate\Support\Carbon|null $lastHeartbeat */
+            /** @var Carbon|null $lastHeartbeat */
             $lastHeartbeat = Cache::get(self::HEARTBEAT_KEY);
 
             if ($lastHeartbeat === null) {

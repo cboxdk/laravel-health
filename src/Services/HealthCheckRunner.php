@@ -9,7 +9,6 @@ use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Cbox\LaravelHealth\DataTransferObjects\HealthReport;
 use Cbox\LaravelHealth\Enums\EndpointType;
 use Cbox\LaravelHealth\Enums\Status;
-use Cbox\LaravelHealth\Exceptions\InvalidCheckException;
 use DateTimeImmutable;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\Cache;

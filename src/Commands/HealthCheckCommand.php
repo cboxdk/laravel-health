@@ -39,7 +39,7 @@ final class HealthCheckCommand extends Command
 
                 $this->components->twoColumnDetail(
                     "  {$result->name}",
-                    $this->formatStatus($result->status->value) . $message,
+                    $this->formatStatus($result->status->value).$message,
                 );
             }
 
