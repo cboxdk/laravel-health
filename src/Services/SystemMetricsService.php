@@ -36,7 +36,7 @@ class SystemMetricsService
             'os_version' => $overview->environment->os->version,
             'kernel' => $overview->environment->kernel->release,
             'architecture' => $overview->environment->architecture->kind->value,
-            'containerized' => $overview->limits?->isContainerized() ?? false,
+            'containerized' => $overview->environment->containerization->insideContainer,
         ];
 
         if (config('health.metrics.system.load', true) && $overview->loadAverage !== null) {
