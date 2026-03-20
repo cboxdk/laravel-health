@@ -5,7 +5,7 @@
 [![PHPStan](https://img.shields.io/github/actions/workflow/status/cboxdk/laravel-health/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/cboxdk/laravel-health/actions?query=workflow%3Aphpstan+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/cboxdk/laravel-health.svg?style=flat-square)](https://packagist.org/packages/cboxdk/laravel-health)
 ![PHP Version](https://img.shields.io/packagist/php-v/cboxdk/laravel-health?style=flat-square)
-![Laravel Version](https://img.shields.io/badge/laravel-11.x%20|%2012.x-blue?style=flat-square)
+![Laravel Version](https://img.shields.io/badge/laravel-11.x%20|%2012.x%20|%2013.x-blue?style=flat-square)
 
 Health checks, Kubernetes probes, Prometheus metrics, and system monitoring for Laravel.
 
