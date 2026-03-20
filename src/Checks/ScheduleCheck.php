@@ -32,7 +32,7 @@ final class ScheduleCheck extends BaseCheck
                 );
             }
 
-            $ageMinutes = $lastHeartbeat->diffInMinutes(now());
+            $ageMinutes = (int) $lastHeartbeat->diffInMinutes(now());
 
             if ($ageMinutes > $maxAgeMinutes) {
                 return CheckResult::critical(
