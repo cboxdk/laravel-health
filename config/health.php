@@ -79,7 +79,7 @@ return [
         'queue' => ['connection' => null],
         'storage' => ['disk' => 'local'],
         'redis' => ['connection' => 'default'],
-        'environment' => ['required' => [], 'optional' => []],
+        'environment' => ['required' => []],
         'schedule' => ['max_age_minutes' => 5],
     ],
 
@@ -126,13 +126,5 @@ return [
         'ttl' => env('HEALTH_CACHE_TTL', 10),
         'store' => null,
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Extensibility
-    |--------------------------------------------------------------------------
-    */
-
-    'actions' => [],
 
 ];
