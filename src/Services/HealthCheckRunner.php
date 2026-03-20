@@ -36,18 +36,26 @@ final class HealthCheckRunner
         $cacheStore = config('health.cache.store');
 
         if ($cacheEnabled) {
-            /** @var HealthReport|null $cached */
-            $cached = Cache::store($cacheStore)->get($cacheKey);
+            try {
+                /** @var HealthReport|null $cached */
+                $cached = Cache::store($cacheStore)->get($cacheKey);
 
-            if ($cached instanceof HealthReport) {
-                return $cached;
+                if ($cached instanceof HealthReport) {
+                    return $cached;
+                }
+            } catch (Throwable) {
+                // Cache unavailable, fall through to execute checks
             }
         }
 
         $report = $this->execute($type);
 
         if ($cacheEnabled) {
-            Cache::store($cacheStore)->put($cacheKey, $report, $cacheTtl);
+            try {
+                Cache::store($cacheStore)->put($cacheKey, $report, $cacheTtl);
+            } catch (Throwable) {
+                // Cache unavailable, skip caching
+            }
         }
 
         return $report;
@@ -84,24 +92,24 @@ final class HealthCheckRunner
      */
     private function runCheck(string $checkClass): CheckResult
     {
-        if (! class_exists($checkClass)) {
-            throw InvalidCheckException::classNotFound($checkClass);
-        }
-
-        $check = $this->container->make($checkClass);
-
-        if (! $check instanceof HealthCheck) {
-            throw InvalidCheckException::notImplementingContract($checkClass);
-        }
-
         $start = hrtime(true);
 
         try {
+            if (! class_exists($checkClass)) {
+                return CheckResult::critical($checkClass, "Health check class [{$checkClass}] not found.");
+            }
+
+            $check = $this->container->make($checkClass);
+
+            if (! $check instanceof HealthCheck) {
+                return CheckResult::critical($checkClass, "Class [{$checkClass}] must implement the HealthCheck contract.");
+            }
+
             $result = $check->run();
         } catch (Throwable $e) {
             $durationMs = (hrtime(true) - $start) / 1e6;
 
-            return CheckResult::critical($check->name(), $e->getMessage())
+            return CheckResult::critical($checkClass, $e->getMessage())
                 ->withDuration($durationMs);
         }
 
