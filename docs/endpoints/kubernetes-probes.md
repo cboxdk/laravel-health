@@ -6,7 +6,7 @@ weight: 31
 
 # Kubernetes Probes
 
-Laravel Health provides dedicated endpoints for each Kubernetes probe type.
+Health for Laravel provides dedicated endpoints for each Kubernetes probe type.
 
 ## Probe Endpoints
 

@@ -1,6 +1,6 @@
 ---
 title: Configuration
-description: Complete reference for all Laravel Health configuration options.
+description: Health for Laravel configuration reference.
 weight: 5
 ---
 

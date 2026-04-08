@@ -6,7 +6,7 @@ weight: 42
 
 # Security
 
-Laravel Health supports three authentication methods: bearer tokens, IP allowlists, and custom auth callbacks.
+Health for Laravel supports three authentication methods: bearer tokens, IP allowlists, and custom auth callbacks.
 
 ## Token Authentication
 

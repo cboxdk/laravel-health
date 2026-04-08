@@ -6,7 +6,7 @@ weight: 34
 
 # Dashboard
 
-Laravel Health includes an optional HTML dashboard at `/health/ui` showing real-time health status and system metrics.
+Health for Laravel includes an optional HTML dashboard at `/health/ui` showing real-time health status and system metrics.
 
 ## Enable the Dashboard
 

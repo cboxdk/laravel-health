@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-description: Get up and running with Laravel Health in minutes.
+description: Get up and running with Health for Laravel in minutes.
 weight: 3
 ---
 

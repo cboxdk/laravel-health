@@ -6,7 +6,7 @@ weight: 44
 
 # System Metrics Integration
 
-Laravel Health uses [cboxdk/system-metrics](https://github.com/cboxdk/system-metrics) to collect CPU, memory, disk, network, and uptime metrics across Linux, macOS, and containerized environments.
+Health for Laravel uses [cboxdk/system-metrics](https://github.com/cboxdk/system-metrics) to collect CPU, memory, disk, network, and uptime metrics across Linux, macOS, and containerized environments.
 
 ## How It Works
 

@@ -6,7 +6,7 @@ weight: 1
 
 # Introduction
 
-Laravel Health provides production-ready health monitoring for Laravel applications. It ships with Kubernetes probe endpoints, Prometheus-compatible metrics, and 11 built-in health checks — all configurable from a single config file.
+Health for Laravel provides production-ready health monitoring for Laravel applications. It ships with Kubernetes probe endpoints, Prometheus-compatible metrics, and 11 built-in health checks — all configurable from a single config file.
 
 ## Features
 

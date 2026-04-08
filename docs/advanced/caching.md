@@ -6,7 +6,7 @@ weight: 43
 
 # Caching
 
-Laravel Health caches check results to reduce overhead from frequent probe requests.
+Health for Laravel caches check results to reduce overhead from frequent probe requests.
 
 ## Configuration
 

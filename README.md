@@ -1,4 +1,4 @@
-# Laravel Health
+# Health for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/cboxdk/laravel-health.svg?style=flat-square)](https://packagist.org/packages/cboxdk/laravel-health)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cboxdk/laravel-health/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/cboxdk/laravel-health/actions?query=workflow%3Arun-tests+branch%3Amain)

@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install and configure Laravel Health in your application.
+description: Install and configure Health for Laravel in your application.
 weight: 2
 ---
 

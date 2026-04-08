@@ -6,7 +6,7 @@ weight: 10
 
 # Health Checks
 
-Laravel Health ships with 11 built-in checks. Each implements the `HealthCheck` contract and returns a `CheckResult` with status `ok`, `warning`, `critical`, or `unknown`.
+Health for Laravel ships with 11 built-in checks. Each implements the `HealthCheck` contract and returns a `CheckResult` with status `ok`, `warning`, `critical`, or `unknown`.
 
 ## Available Checks
 

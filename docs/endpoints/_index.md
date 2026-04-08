@@ -6,7 +6,7 @@ weight: 30
 
 # Endpoints
 
-Laravel Health registers 7 endpoints under a configurable prefix (default: `/health`).
+Health for Laravel registers 7 endpoints under a configurable prefix (default: `/health`).
 
 ## Available Endpoints
 
