@@ -49,7 +49,7 @@ final class CpuCheck extends BaseCheck
             return CheckResult::critical(
                 $this->name(),
                 sprintf(
-                    'Load per core %.2f exceeds threshold %.1f (load: %.2f, cores: %d)',
+                    'Load per core %.2f exceeds threshold %.1f (load: %.2f, cores: %.1f)',
                     $normalized->oneMinute,
                     $threshold,
                     $load->oneMinute,
