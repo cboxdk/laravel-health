@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 2.0.0 - 2026-04-30
+
+### Changed
+- **Breaking:** Bump `cboxdk/system-metrics` dependency from `^2.1` to `^3.0`. CPU core values (`core_count`, `host_cpu_cores`, `cores`) are now `float` instead of `int`, supporting fractional CPU allocations in containerized environments (e.g. 0.5 cores).
+
 ## 1.0.1 - 2026-03-20
 
 ### Fixed
