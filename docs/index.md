@@ -39,4 +39,5 @@ This distinction matters. A Redis check on liveness means a Redis outage restart
 
 - [Installation](installation.md)
 - [Quick Start](quickstart.md)
+- [Requirements](requirements.md)
 - [Configuration](configuration.md)

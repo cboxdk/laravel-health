@@ -37,7 +37,7 @@ curl http://localhost/health
 
 ## Documentation
 
-Full documentation is available in the [docs/](docs/introduction.md) directory.
+Full documentation is available in the [docs/](docs/index.md) directory.
 
 ## Testing
 
