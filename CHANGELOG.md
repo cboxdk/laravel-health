@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
-## Unreleased
+## 3.0.0 - 2026-09-26
 
 Breaking release; see [UPGRADING.md](UPGRADING.md).
 
