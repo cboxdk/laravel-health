@@ -2,7 +2,6 @@
 .phpunit.cache
 .playwright-mcp
 build
-composer.lock
 coverage
 node_modules
 phpunit.xml

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Commands;
 
+use Cbox\LaravelHealth\Contracts\RunsHealthChecks;
 use Cbox\LaravelHealth\Enums\EndpointType;
-use Cbox\LaravelHealth\Services\HealthCheckRunner;
 use Illuminate\Console\Command;
 
 final class HealthCheckCommand extends Command
@@ -14,7 +14,7 @@ final class HealthCheckCommand extends Command
 
     protected $description = 'Run health checks and display results';
 
-    public function handle(HealthCheckRunner $runner): int
+    public function handle(RunsHealthChecks $runner): int
     {
         $endpoints = $this->getEndpoints();
 
@@ -56,14 +56,14 @@ final class HealthCheckCommand extends Command
      */
     private function getEndpoints(): array
     {
-        /** @var string|null $endpoint */
         $endpoint = $this->option('endpoint');
 
-        if ($endpoint !== null) {
+        if (is_string($endpoint)) {
+            $probes = [EndpointType::Liveness, EndpointType::Readiness, EndpointType::Startup];
             $type = EndpointType::tryFrom($endpoint);
 
-            if ($type === null) {
-                $valid = implode(', ', array_map(fn (EndpointType $t): string => $t->value, EndpointType::cases()));
+            if ($type === null || ! in_array($type, $probes, true)) {
+                $valid = implode(', ', array_map(fn (EndpointType $t): string => $t->value, $probes));
                 $this->components->error("Invalid endpoint '{$endpoint}'. Valid options: {$valid}");
 
                 return [];

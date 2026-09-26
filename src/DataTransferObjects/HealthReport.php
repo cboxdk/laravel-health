@@ -21,6 +21,29 @@ final readonly class HealthReport
         public DateTimeImmutable $checkedAt,
     ) {}
 
+    /**
+     * Aggregate check results into a report whose status is the worst individual status.
+     * An endpoint with no checks is healthy.
+     *
+     * @param  CheckResult[]  $results
+     */
+    public static function fromResults(
+        EndpointType $type,
+        array $results,
+        float $totalDurationMs = 0.0,
+        ?DateTimeImmutable $checkedAt = null,
+    ): self {
+        $statuses = array_map(fn (CheckResult $result): Status => $result->status, $results);
+
+        return new self(
+            type: $type,
+            status: $statuses !== [] ? Status::worst($statuses) : Status::Ok,
+            results: $results,
+            totalDurationMs: $totalDurationMs,
+            checkedAt: $checkedAt ?? new DateTimeImmutable,
+        );
+    }
+
     public function isPassing(): bool
     {
         return $this->status->isHealthy();

@@ -1,7 +1,7 @@
 ---
 title: Environment Check
 description: Verify required environment variables are set.
-weight: 16
+weight: 46
 ---
 
 # Environment Check
@@ -32,11 +32,13 @@ use Cbox\LaravelHealth\Checks\EnvironmentCheck;
 
 ## Behavior
 
-- Checks each variable in the `required` array
+- Checks each variable in the `required` array with PHP's `getenv()`; a variable set to an empty string counts as present
 - Returns `ok` when all required variables exist
 - Returns `critical` with `missing` metadata listing absent variables
+
+When the configuration is cached (`php artisan config:cache`), Laravel doesn't load `.env`, so variables defined only in `.env` are not visible to `getenv()`. Set required variables in the real process environment (container env, systemd unit, PHP-FPM pool) when you cache config.
 
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)

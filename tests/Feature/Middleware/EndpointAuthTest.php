@@ -71,3 +71,12 @@ it('blocks with invalid token', function (): void {
 
     $response->assertForbidden();
 });
+
+it('ignores an array token query param and falls back to the bearer token', function (): void {
+    config()->set('health.security.token', 'secret');
+    app()->detectEnvironment(fn () => 'production');
+
+    $this->getJson('/health/ready?token[]=secret')->assertForbidden();
+
+    $this->getJson('/health/ready?token[]=nope', ['Authorization' => 'Bearer secret'])->assertOk();
+});

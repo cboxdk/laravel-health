@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Checks;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
+use DateTimeInterface;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Throwable;
@@ -20,10 +22,8 @@ final class ScheduleCheck extends BaseCheck
     public function run(): CheckResult
     {
         try {
-            /** @var int $maxAgeMinutes */
-            $maxAgeMinutes = config('health.checks_config.schedule.max_age_minutes', 5);
+            $maxAgeMinutes = TypedConfig::integer('health.checks_config.schedule.max_age_minutes', 5);
 
-            /** @var Carbon|null $lastHeartbeat */
             $lastHeartbeat = Cache::get(self::HEARTBEAT_KEY);
 
             if ($lastHeartbeat === null) {
@@ -33,7 +33,14 @@ final class ScheduleCheck extends BaseCheck
                 );
             }
 
-            $ageMinutes = (int) $lastHeartbeat->diffInMinutes(now());
+            if (! $lastHeartbeat instanceof DateTimeInterface) {
+                return CheckResult::critical(
+                    $this->name(),
+                    'Scheduler heartbeat cache value is not a timestamp.',
+                );
+            }
+
+            $ageMinutes = (int) Carbon::instance($lastHeartbeat)->diffInMinutes(now());
 
             if ($ageMinutes > $maxAgeMinutes) {
                 return CheckResult::critical(

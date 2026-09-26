@@ -1,12 +1,14 @@
 ---
 title: Health Checks
 description: Overview of all built-in health checks.
-weight: 10
+weight: 40
 ---
 
 # Health Checks
 
-Health for Laravel ships with 11 built-in checks. Each implements the `HealthCheck` contract and returns a `CheckResult` with status `ok`, `warning`, `critical`, or `unknown`.
+Health for Laravel ships with 10 built-in checks. Each implements the `HealthCheck` contract and returns a `CheckResult` with status `ok`, `warning`, `critical`, or `unknown`. On a probe endpoint, `ok` and `warning` return `200`; `critical` and `unknown` return `503`.
+
+All built-in checks live in the `Cbox\LaravelHealth\Checks` namespace.
 
 ## Available Checks
 
@@ -20,7 +22,7 @@ Health for Laravel ships with 11 built-in checks. Each implements the `HealthChe
 | [Environment](environment.md) | `EnvironmentCheck` | Verifies required env vars exist |
 | [Schedule](schedule.md) | `ScheduleCheck` | Checks scheduler heartbeat freshness |
 | [CPU](cpu.md) | `CpuCheck` | Load average normalized per core |
-| [Memory](memory.md) | `MemoryCheck` | System memory usage (cgroup aware) |
+| [Memory](memory.md) | `MemoryCheck` | System memory usage percentage |
 | [Disk Space](disk-space.md) | `DiskSpaceCheck` | Mount point usage percentage |
 
 ## Choosing Checks per Endpoint
@@ -53,6 +55,6 @@ Not every check belongs on every probe. The wrong check on the wrong probe can c
 ## Related Documentation
 
 - [Kubernetes Probes](../endpoints/kubernetes-probes.md) — probe design strategy and cascading failure prevention
-- [Configuration](../configuration.md)
-- [Custom Checks](../advanced/custom-checks.md)
+- [Configuration Reference](../configuration/reference.md)
+- [Custom Checks](../extension-points/custom-checks.md) — write your own
 - [Endpoints](../endpoints/_index.md)

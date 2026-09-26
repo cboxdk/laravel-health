@@ -48,3 +48,9 @@ it('exits with 1 for invalid endpoint', function (): void {
     $this->artisan('health:check', ['--endpoint' => 'invalid'])
         ->assertExitCode(1);
 });
+
+it('rejects the status endpoint because it has no checks of its own', function (): void {
+    $this->artisan('health:check', ['--endpoint' => 'status'])
+        ->expectsOutputToContain('Valid options: liveness, readiness, startup')
+        ->assertFailed();
+});

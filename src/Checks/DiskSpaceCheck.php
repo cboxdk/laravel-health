@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Checks;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Cbox\SystemMetrics\SystemMetrics;
 
@@ -19,15 +20,14 @@ final class DiskSpaceCheck extends BaseCheck
 
         $storage = $result->getValue();
 
-        /** @var int|float $threshold */
-        $threshold = config('health.thresholds.disk_space_percent', 90);
+        $threshold = TypedConfig::number('health.thresholds.disk_space_percent', 90);
 
         $criticalMounts = [];
 
         foreach ($storage->mountPoints as $mount) {
             $usedPercent = $mount->usedPercentage();
 
-            if ($usedPercent >= (float) $threshold) {
+            if ($usedPercent >= $threshold) {
                 $criticalMounts[] = sprintf(
                     '%s: %.1f%%',
                     $mount->mountPoint,

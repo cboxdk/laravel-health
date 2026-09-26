@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Config;
 
+use Cbox\LaravelHealth\Exceptions\InvalidConfigurationException;
+
 final readonly class HealthConfig
 {
     /**
@@ -18,20 +20,21 @@ final readonly class HealthConfig
 
     public static function fromConfig(): self
     {
-        /** @var string $prefix */
-        $prefix = config('health.endpoints.prefix', 'health');
+        $prometheusNamespace = TypedConfig::string('health.metrics.prometheus.namespace', 'app');
 
-        /** @var string $prometheusNamespace */
-        $prometheusNamespace = config('health.metrics.prometheus.namespace', 'app');
-
-        /** @var array<string, mixed> $security */
-        $security = config('health.security', []);
+        if (preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $prometheusNamespace) !== 1) {
+            throw InvalidConfigurationException::invalidPrometheusNamespace($prometheusNamespace);
+        }
 
         return new self(
-            enabled: (bool) config('health.enabled', true),
-            prefix: $prefix,
+            enabled: TypedConfig::boolean('health.enabled', true),
+            prefix: TypedConfig::string('health.endpoints.prefix', 'health'),
             prometheusNamespace: $prometheusNamespace,
-            security: $security,
+            security: [
+                'token' => TypedConfig::nullableString('health.security.token'),
+                'allowed_ips' => TypedConfig::nullableStringList('health.security.allowed_ips'),
+                'public_endpoints' => TypedConfig::stringList('health.security.public_endpoints'),
+            ],
         );
     }
 
@@ -40,14 +43,16 @@ final readonly class HealthConfig
      */
     public function publicEndpoints(): array
     {
-        /** @var array<int, string> */
-        return $this->security['public_endpoints'] ?? [];
+        $endpoints = $this->security['public_endpoints'] ?? [];
+
+        return is_array($endpoints) ? array_values(array_filter($endpoints, is_string(...))) : [];
     }
 
     public function token(): ?string
     {
-        /** @var string|null */
-        return $this->security['token'] ?? null;
+        $token = $this->security['token'] ?? null;
+
+        return is_string($token) ? $token : null;
     }
 
     /**
@@ -55,7 +60,9 @@ final readonly class HealthConfig
      */
     public function allowedIps(): ?array
     {
-        /** @var array<int, string>|null */
-        return $this->security['allowed_ips'] ?? null;
+        $allowedIps = $this->security['allowed_ips'] ?? null;
+
+        // Non-string entries are dropped, never trusted: an allowlist only narrows.
+        return is_array($allowedIps) ? array_values(array_filter($allowedIps, is_string(...))) : null;
     }
 }

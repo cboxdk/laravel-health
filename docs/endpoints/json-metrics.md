@@ -1,7 +1,7 @@
 ---
 title: JSON Metrics
 description: JSON system metrics endpoint.
-weight: 33
+weight: 53
 ---
 
 # JSON Metrics
@@ -77,6 +77,8 @@ Responses include a `hostname` field identifying which host served the request. 
 
 The `hostname` field identifies the responding host — useful in horizontally scaled deployments where a load balancer routes to any instance. The `memory.source` field indicates whether metrics come from `host`, `cgroup_v1`, or `cgroup_v2`. The `container` section only appears when running inside a container.
 
+System metrics are read on every request; this endpoint runs no health checks and always returns `200`. If the metrics can't be read at all, the response contains only `hostname`.
+
 ## Disabling Metric Groups
 
 Toggle groups in `config/health.php`:
@@ -84,7 +86,6 @@ Toggle groups in `config/health.php`:
 ```php
 'metrics' => [
     'system' => [
-        'cpu'     => true,
         'memory'  => true,
         'load'    => false,
         'storage' => false,
@@ -93,8 +94,10 @@ Toggle groups in `config/health.php`:
 ],
 ```
 
+The `environment`, `uptime` and `container` sections have no toggle.
+
 ## Related Documentation
 
 - [Endpoints Overview](_index.md)
 - [Prometheus Metrics](prometheus-metrics.md)
-- [System Metrics Integration](../advanced/system-metrics-integration.md)
+- [System Metrics](../core-concepts/system-metrics.md)

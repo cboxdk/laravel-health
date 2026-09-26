@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Checks;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Illuminate\Support\Facades\Redis;
 use Throwable;
@@ -13,10 +14,8 @@ final class RedisCheck extends BaseCheck
     public function run(): CheckResult
     {
         try {
-            /** @var string $connection */
-            $connection = config('health.checks_config.redis.connection', 'default');
+            $connection = TypedConfig::string('health.checks_config.redis.connection', 'default');
 
-            /** @var mixed $response */
             $response = Redis::connection($connection)->command('ping');
 
             if ($response === true || $response === 'PONG' || $response === '+PONG') {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Checks;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Cbox\SystemMetrics\SystemMetrics;
 
@@ -32,9 +33,7 @@ final class CpuCheck extends BaseCheck
         $cpu = $cpuResult->getValue();
         $normalized = $load->normalized($cpu);
 
-        /** @var float|int $thresholdRaw */
-        $thresholdRaw = config('health.thresholds.cpu_load_per_core', 2.0);
-        $threshold = (float) $thresholdRaw;
+        $threshold = (float) TypedConfig::number('health.thresholds.cpu_load_per_core', 2.0);
 
         $metadata = [
             'load_1m' => $load->oneMinute,

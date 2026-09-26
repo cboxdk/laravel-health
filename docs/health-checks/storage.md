@@ -1,7 +1,7 @@
 ---
 title: Storage Check
 description: Verify filesystem read/write permissions.
-weight: 14
+weight: 44
 ---
 
 # Storage Check
@@ -37,4 +37,4 @@ use Cbox\LaravelHealth\Checks\StorageCheck;
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)

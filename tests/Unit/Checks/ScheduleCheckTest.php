@@ -35,3 +35,18 @@ it('fails when heartbeat is stale', function (): void {
     expect($result->status)->toBe(Status::Critical)
         ->and($result->message)->toContain('minutes old');
 });
+
+it('fails when the heartbeat cache value is not a timestamp', function (): void {
+    Cache::put('health:schedule:heartbeat', 'not-a-date');
+
+    $result = (new ScheduleCheck)->run();
+
+    expect($result->status)->toBe(Status::Critical)
+        ->and($result->message)->toContain('not a timestamp');
+});
+
+it('accepts a native DateTimeImmutable heartbeat', function (): void {
+    Cache::put('health:schedule:heartbeat', new DateTimeImmutable);
+
+    expect((new ScheduleCheck)->run()->status)->toBe(Status::Ok);
+});

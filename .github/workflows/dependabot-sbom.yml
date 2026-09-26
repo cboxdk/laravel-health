@@ -1,0 +1,70 @@
+name: dependabot sbom sync
+
+# sbom.json is generated from composer.lock, and Dependabot bumps the lock
+# without it — so every Dependabot PR fails the "license check + SBOM drift"
+# gate in security.yml until someone regenerates the file by hand. This job
+# does it for them.
+#
+# pull_request_target, not pull_request: a workflow triggered by a Dependabot
+# PR gets a read-only token, and this one has to push. That makes the token
+# write-capable on the base branch, so the job runs the generator from the
+# BASE branch and never the copy in the pull request, and refuses anything
+# that is not a Dependabot branch in this repository.
+#
+# One caveat: a push made with GITHUB_TOKEN does not start new workflow runs,
+# so the PR's other checks do not re-run on the commit this job adds. Store a
+# PAT (repo scope) as SBOM_SYNC_TOKEN and they will.
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - composer.lock
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: regenerate sbom.json
+    if: >-
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.SBOM_SYNC_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Take the generator from the base branch
+        run: git checkout ${{ github.event.pull_request.base.sha }} -- bin/generate-sbom.php
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Regenerate the SBOM
+        run: |
+          php bin/generate-sbom.php
+          git checkout HEAD -- bin/generate-sbom.php
+
+      - name: Commit it if it drifted
+        run: |
+          if git diff --quiet -- sbom.json; then
+            echo 'sbom.json already matches composer.lock.'
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(deps): regenerate sbom.json for the updated lock' -- sbom.json
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}

@@ -21,19 +21,23 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "cboxdk/system-metrics": "^3.0",
-        "illuminate/contracts": "^11.0|^12.0|^13.0",
-        "spatie/laravel-package-tools": "^1.16"
+        "illuminate/console": "^12.0 || ^13.0",
+        "illuminate/contracts": "^12.0 || ^13.0",
+        "illuminate/http": "^12.0 || ^13.0",
+        "illuminate/routing": "^12.0 || ^13.0",
+        "illuminate/support": "^12.0 || ^13.0",
+        "illuminate/view": "^12.0 || ^13.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
-        "larastan/larastan": "^3.0",
-        "nunomaduro/collision": "^8.8",
-        "orchestra/testbench": "^11.0||^10.0||^9.0",
-        "pestphp/pest": "^4.0",
-        "pestphp/pest-plugin-arch": "^4.0",
-        "pestphp/pest-plugin-laravel": "^4.0",
+        "larastan/larastan": "^3.12",
+        "nunomaduro/collision": "^8.9",
+        "orchestra/testbench": "^10.0 || ^11.0",
+        "pestphp/pest": "^4.0 || ^5.0",
+        "pestphp/pest-plugin-arch": "^4.0 || ^5.0",
+        "pestphp/pest-plugin-laravel": "^4.0 || ^5.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0"
@@ -51,10 +55,20 @@
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint",
+        "lint": "vendor/bin/pint --test",
+        "analyse": "vendor/bin/phpstan analyse --no-progress --memory-limit=1G",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
+        "license-check": "@php bin/check-licenses.php",
+        "sbom": "@php bin/generate-sbom.php",
+        "qa": [
+            "@lint",
+            "@analyse",
+            "@test",
+            "@license-check",
+            "@composer audit --no-dev"
+        ]
     },
     "config": {
         "sort-packages": true,
@@ -74,5 +88,12 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts-descriptions": {
+        "lint": "Check code style with Pint (no changes).",
+        "analyse": "Run PHPStan at level max.",
+        "license-check": "Fail when a dependency is not permissively licensed.",
+        "sbom": "Regenerate the CycloneDX SBOM (sbom.json) from composer.lock.",
+        "qa": "Run the full pre-commit gate."
+    }
 }

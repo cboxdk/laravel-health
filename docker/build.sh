@@ -5,11 +5,15 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
 echo "==> Syncing packages into build context..."
+# This repo, and a system-metrics checkout next to it (override with SYSTEM_METRICS_PATH).
+PACKAGE_PATH="$(cd "$SCRIPT_DIR/.." && pwd)"
+SYSTEM_METRICS_PATH="${SYSTEM_METRICS_PATH:-$PACKAGE_PATH/../system-metrics}"
+
 rsync -a --delete --exclude=vendor --exclude=node_modules --exclude=.git --exclude=docker \
-    /Users/sylvester/Projects/Cbox/laravel-health/ ./laravel-health/
+    "$PACKAGE_PATH/" ./laravel-health/
 
 rsync -a --delete --exclude=vendor --exclude=node_modules --exclude=.git \
-    /Users/sylvester/Projects/Cbox/system-metrics/ ./system-metrics/
+    "$SYSTEM_METRICS_PATH/" ./system-metrics/
 
 echo "==> Building Docker image..."
 docker compose build --no-cache

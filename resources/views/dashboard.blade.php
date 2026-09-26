@@ -4,25 +4,261 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'media',
+    <style>
+        :root {
+            --bg: #f9fafb;
+            --surface: #ffffff;
+            --surface-muted: #f9fafb;
+            --border: #e5e7eb;
+            --text: #111827;
+            --text-secondary: #4b5563;
+            --text-muted: #6b7280;
+            --text-faint: #9ca3af;
+            --track: #e5e7eb;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+
+            --ok: #22c55e;
+            --ok-bg: #dcfce7;
+            --ok-fg: #166534;
+            --ok-hero: #f0fdf4;
+            --warning: #eab308;
+            --warning-bg: #fef9c3;
+            --warning-fg: #854d0e;
+            --warning-hero: #fefce8;
+            --critical: #ef4444;
+            --critical-bg: #fee2e2;
+            --critical-fg: #991b1b;
+            --critical-hero: #fef2f2;
+            --unknown: #6b7280;
+            --unknown-bg: #f3f4f6;
+            --unknown-fg: #1f2937;
+            --unknown-hero: #f9fafb;
+            --info-bg: #dbeafe;
+            --info-fg: #1e40af;
+
+            --radius: 0.5rem;
+            --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
-    </script>
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111827;
+                --surface: #1f2937;
+                --surface-muted: #111827;
+                --border: #374151;
+                --text: #ffffff;
+                --text-secondary: #d1d5db;
+                --text-muted: #9ca3af;
+                --text-faint: #6b7280;
+                --track: #374151;
+                --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+
+                --ok-bg: #14532d;
+                --ok-fg: #bbf7d0;
+                --ok-hero: rgba(20, 83, 45, 0.2);
+                --warning-bg: #713f12;
+                --warning-fg: #fef08a;
+                --warning-hero: rgba(113, 63, 18, 0.2);
+                --critical-bg: #7f1d1d;
+                --critical-fg: #fecaca;
+                --critical-hero: rgba(127, 29, 29, 0.2);
+                --unknown-bg: #374151;
+                --unknown-fg: #e5e7eb;
+                --unknown-hero: #1f2937;
+                --info-bg: #1e3a8a;
+                --info-fg: #bfdbfe;
+            }
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, p { margin: 0; }
+
+        .container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        @media (min-width: 640px) { .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
+        @media (min-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; } }
+
+        .section { margin-bottom: 2rem; }
+
+        /* Header */
+        .title { font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; }
+        .subtitle { margin-top: 0.25rem; font-size: 0.875rem; color: var(--text-muted); }
+
+        /* Tags and badges */
+        .tag, .badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.75rem;
+            line-height: 1rem;
+            font-weight: 500;
+        }
+        .tag { padding: 0.125rem 0.5rem; border-radius: 0.25rem; }
+        .badge { padding: 0.125rem 0.625rem; border-radius: 9999px; }
+        .tag--refresh { margin-left: 0.5rem; }
+
+        .is-ok { background: var(--ok-bg); color: var(--ok-fg); }
+        .is-warning { background: var(--warning-bg); color: var(--warning-fg); }
+        .is-critical { background: var(--critical-bg); color: var(--critical-fg); }
+        .is-unknown { background: var(--unknown-bg); color: var(--unknown-fg); }
+        .is-info { background: var(--info-bg); color: var(--info-fg); }
+
+        /* Overall status hero */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+        .hero-icon {
+            flex-shrink: 0;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.875rem;
+            line-height: 1;
+        }
+        .hero-title { font-size: 1.5rem; line-height: 2rem; font-weight: 700; }
+        .hero-meta { font-size: 0.875rem; color: var(--text-muted); }
+
+        .hero--ok { background: var(--ok-hero); }
+        .hero--ok .hero-icon { background: var(--ok); }
+        .hero--ok .hero-title { color: var(--ok); }
+        .hero--warning { background: var(--warning-hero); }
+        .hero--warning .hero-icon { background: var(--warning); }
+        .hero--warning .hero-title { color: var(--warning); }
+        .hero--critical { background: var(--critical-hero); }
+        .hero--critical .hero-icon { background: var(--critical); }
+        .hero--critical .hero-title { color: var(--critical); }
+        .hero--unknown { background: var(--unknown-hero); }
+        .hero--unknown .hero-icon { background: var(--unknown); }
+        .hero--unknown .hero-title { color: var(--unknown); }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .card-body { padding: 1.5rem; }
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .card-title { font-size: 1.125rem; line-height: 1.75rem; font-weight: 600; }
+        .card-body > .card-title { margin-bottom: 1rem; }
+        .card-label {
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Grids */
+        .grid { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
+        .facts { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .facts--wide { column-gap: 2rem; }
+        @media (min-width: 768px) {
+            .grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .facts--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+            .facts--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media (max-width: 479px) {
+            .facts { grid-template-columns: minmax(0, 1fr); }
+        }
+
+        .fact-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+        .fact-value { font-size: 0.875rem; font-weight: 600; overflow-wrap: anywhere; }
+        .fact-note { font-size: 0.75rem; font-weight: 400; color: var(--text-faint); }
+
+        /* Key/value rows */
+        .rows > * + * { margin-top: 0.75rem; }
+        .row { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.875rem; }
+        .row-label { color: var(--text-secondary); }
+        .row-value { font-weight: 600; }
+        .rows-footer {
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .details { margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); }
+        .details > * + * { margin-top: 0.25rem; }
+        .details .row { font-size: 0.75rem; }
+
+        /* Progress bars */
+        .bar { width: 100%; height: 0.5rem; background: var(--track); border-radius: 9999px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 9999px; }
+        .bar-fill--ok { background: var(--ok); }
+        .bar-fill--warning { background: var(--warning); }
+        .bar-fill--critical { background: var(--critical); }
+        .meter { display: flex; align-items: center; gap: 0.75rem; }
+        .meter .bar { flex: 1; min-width: 4rem; }
+        .meter-value { width: 3rem; text-align: right; font-size: 0.875rem; font-weight: 500; }
+        .usage-head { margin-bottom: 0.25rem; }
+
+        /* Tables */
+        .table-wrap { overflow-x: auto; }
+        .table { min-width: 100%; border-collapse: collapse; }
+        .table thead { background: var(--surface-muted); }
+        .table th {
+            padding: 0.75rem 1.5rem;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+        .table td {
+            padding: 1rem 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            border-top: 1px solid var(--border);
+        }
+        .table--compact td { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .table td.cell-strong { font-weight: 500; color: var(--text); }
+        .table .num { text-align: right; }
+        .col-usage { width: 25%; }
+
+        .footer { text-align: center; font-size: 0.875rem; color: var(--text-muted); }
+    </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="dashboard">
+<body>
+    <div class="container" id="dashboard">
         {{-- Header --}}
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Health Dashboard</h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        <div class="section">
+            <h1 class="title">Health Dashboard</h1>
+            <p class="subtitle">
                 @if($hostname)
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">{{ $hostname }}</span>
+                    <span class="tag is-unknown">{{ $hostname }}</span>
                     &middot;
                 @endif
                 Last updated: <span id="last-updated">{{ now()->format('H:i:s') }}</span>
-                <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" id="auto-refresh-badge">
+                <span class="tag tag--refresh is-ok" id="auto-refresh-badge">
                     Auto-refresh: 10s
                 </span>
             </p>
@@ -32,69 +268,67 @@
         @php
             $overallStatus = $readiness->status->value;
             $statusConfig = match($overallStatus) {
-                'ok' => ['bg' => 'bg-green-500', 'text' => 'text-green-500', 'bgLight' => 'bg-green-50 dark:bg-green-900/20', 'icon' => '&#10003;', 'label' => 'All Systems Operational'],
-                'warning' => ['bg' => 'bg-yellow-500', 'text' => 'text-yellow-500', 'bgLight' => 'bg-yellow-50 dark:bg-yellow-900/20', 'icon' => '&#9888;', 'label' => 'Degraded Performance'],
-                'critical' => ['bg' => 'bg-red-500', 'text' => 'text-red-500', 'bgLight' => 'bg-red-50 dark:bg-red-900/20', 'icon' => '&#10007;', 'label' => 'System Outage'],
-                default => ['bg' => 'bg-gray-500', 'text' => 'text-gray-500', 'bgLight' => 'bg-gray-50 dark:bg-gray-800', 'icon' => '?', 'label' => 'Unknown'],
+                'ok' => ['modifier' => 'ok', 'icon' => '&#10003;', 'label' => 'All Systems Operational'],
+                'warning' => ['modifier' => 'warning', 'icon' => '&#9888;', 'label' => 'Degraded Performance'],
+                'critical' => ['modifier' => 'critical', 'icon' => '&#10007;', 'label' => 'System Outage'],
+                default => ['modifier' => 'unknown', 'icon' => '?', 'label' => 'Unknown'],
             };
         @endphp
 
-        <div class="rounded-lg {{ $statusConfig['bgLight'] }} border border-gray-200 dark:border-gray-700 p-6 mb-8">
-            <div class="flex items-center space-x-4">
-                <div class="flex-shrink-0 w-16 h-16 {{ $statusConfig['bg'] }} rounded-full flex items-center justify-center">
-                    <span class="text-3xl text-white">{!! $statusConfig['icon'] !!}</span>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-bold {{ $statusConfig['text'] }}">{{ $statusConfig['label'] }}</h2>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">
-                        Checked at {{ $readiness->checkedAt->format('Y-m-d H:i:s') }} &middot;
-                        Total duration: {{ number_format($readiness->totalDurationMs, 1) }}ms
-                    </p>
-                </div>
+        <div class="section hero hero--{{ $statusConfig['modifier'] }}">
+            <div class="hero-icon">
+                <span>{!! $statusConfig['icon'] !!}</span>
+            </div>
+            <div>
+                <h2 class="hero-title">{{ $statusConfig['label'] }}</h2>
+                <p class="hero-meta">
+                    Checked at {{ $readiness->checkedAt->format('Y-m-d H:i:s') }} &middot;
+                    Total duration: {{ number_format($readiness->totalDurationMs, 1) }}ms
+                </p>
             </div>
         </div>
 
         {{-- Health Checks Table --}}
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-8">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Health Checks</h3>
+        <div class="section card">
+            <div class="card-header">
+                <h3 class="card-title">Health Checks</h3>
             </div>
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-900">
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Check</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Message</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Duration</th>
+                            <th>Check</th>
+                            <th>Status</th>
+                            <th>Message</th>
+                            <th>Duration</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody>
                         @php
                             $allResults = collect(array_merge($liveness->results, $readiness->results))->unique('name');
                         @endphp
                         @foreach($allResults as $result)
                             @php
                                 $badgeClass = match($result->status->value) {
-                                    'ok' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                                    'warning' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-                                    'critical' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-                                    default => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+                                    'ok' => 'is-ok',
+                                    'warning' => 'is-warning',
+                                    'critical' => 'is-critical',
+                                    default => 'is-unknown',
                                 };
                             @endphp
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                <td class="cell-strong">
                                     {{ $result->name }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $badgeClass }}">
+                                <td>
+                                    <span class="badge {{ $badgeClass }}">
                                         {{ $result->status->value }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                <td>
                                     {{ $result->message ?: '-' }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                <td>
                                     {{ number_format($result->durationMs, 2) }}ms
                                 </td>
                             </tr>
@@ -106,32 +340,32 @@
 
         {{-- System Info --}}
         @if(isset($systemMetrics['environment']) && $systemMetrics['environment'])
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-8 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">System Info</h3>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="section card card-body">
+                <h3 class="card-title">System Info</h3>
+                <div class="facts facts--5">
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">OS</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $systemMetrics['environment']['os'] }}</p>
+                        <span class="fact-label">OS</span>
+                        <p class="fact-value">{{ $systemMetrics['environment']['os'] }}</p>
                     </div>
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">Version</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $systemMetrics['environment']['os_version'] }}</p>
+                        <span class="fact-label">Version</span>
+                        <p class="fact-value">{{ $systemMetrics['environment']['os_version'] }}</p>
                     </div>
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">Kernel</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $systemMetrics['environment']['kernel'] }}</p>
+                        <span class="fact-label">Kernel</span>
+                        <p class="fact-value">{{ $systemMetrics['environment']['kernel'] }}</p>
                     </div>
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">Architecture</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $systemMetrics['environment']['architecture'] }}</p>
+                        <span class="fact-label">Architecture</span>
+                        <p class="fact-value">{{ $systemMetrics['environment']['architecture'] }}</p>
                     </div>
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">Environment</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                        <span class="fact-label">Environment</span>
+                        <p class="fact-value">
                             @if($systemMetrics['environment']['containerized'])
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Container</span>
+                                <span class="tag is-info">Container</span>
                             @else
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">Host</span>
+                                <span class="tag is-unknown">Host</span>
                             @endif
                         </p>
                     </div>
@@ -140,27 +374,27 @@
         @endif
 
         {{-- System Metrics --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="section grid grid--2">
             {{-- CPU/Load Card --}}
             @if(isset($systemMetrics['load']) && $systemMetrics['load'])
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                    <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">CPU Load</h4>
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <span class="text-sm text-gray-600 dark:text-gray-300">1 min</span>
-                            <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ number_format($systemMetrics['load']['load_1m'], 2) }}</span>
+                <div class="card card-body">
+                    <h4 class="card-label">CPU Load</h4>
+                    <div class="rows">
+                        <div class="row">
+                            <span class="row-label">1 min</span>
+                            <span class="row-value">{{ number_format($systemMetrics['load']['load_1m'], 2) }}</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-sm text-gray-600 dark:text-gray-300">5 min</span>
-                            <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ number_format($systemMetrics['load']['load_5m'], 2) }}</span>
+                        <div class="row">
+                            <span class="row-label">5 min</span>
+                            <span class="row-value">{{ number_format($systemMetrics['load']['load_5m'], 2) }}</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-sm text-gray-600 dark:text-gray-300">15 min</span>
-                            <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ number_format($systemMetrics['load']['load_15m'], 2) }}</span>
+                        <div class="row">
+                            <span class="row-label">15 min</span>
+                            <span class="row-value">{{ number_format($systemMetrics['load']['load_15m'], 2) }}</span>
                         </div>
                         @if($systemMetrics['load']['core_count'])
-                            <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
-                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ $systemMetrics['load']['core_count'] }} cores</span>
+                            <div class="rows-footer">
+                                <span>{{ $systemMetrics['load']['core_count'] }} cores</span>
                             </div>
                         @endif
                     </div>
@@ -171,25 +405,25 @@
             @if(isset($systemMetrics['memory']) && $systemMetrics['memory'])
                 @php
                     $memPercent = $systemMetrics['memory']['used_percent'];
-                    $memBarColor = $memPercent > 90 ? 'bg-red-500' : ($memPercent > 75 ? 'bg-yellow-500' : 'bg-green-500');
+                    $memBarColor = $memPercent > 90 ? 'bar-fill--critical' : ($memPercent > 75 ? 'bar-fill--warning' : 'bar-fill--ok');
                 @endphp
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                    <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Memory</h4>
-                    <div class="mb-2">
-                        <div class="flex justify-between text-sm mb-1">
-                            <span class="text-gray-600 dark:text-gray-300">Usage</span>
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $memPercent }}%</span>
+                <div class="card card-body">
+                    <h4 class="card-label">Memory</h4>
+                    <div>
+                        <div class="row usage-head">
+                            <span class="row-label">Usage</span>
+                            <span class="row-value">{{ $memPercent }}%</span>
                         </div>
-                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                            <div class="{{ $memBarColor }} h-2 rounded-full" style="width: {{ min($memPercent, 100) }}%"></div>
+                        <div class="bar">
+                            <div class="bar-fill {{ $memBarColor }}" style="width: {{ min($memPercent, 100) }}%"></div>
                         </div>
                     </div>
-                    <div class="mt-3 space-y-1 text-xs text-gray-500 dark:text-gray-400">
-                        <div class="flex justify-between">
+                    <div class="details">
+                        <div class="row">
                             <span>Used</span>
                             <span>{{ number_format($systemMetrics['memory']['used_bytes'] / 1073741824, 1) }} GB</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="row">
                             <span>Total</span>
                             <span>{{ number_format($systemMetrics['memory']['total_bytes'] / 1073741824, 1) }} GB</span>
                         </div>
@@ -200,46 +434,46 @@
 
         {{-- Disk Usage Table --}}
         @if(isset($systemMetrics['storage']) && $systemMetrics['storage'])
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-8">
-                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Disk Usage</h3>
+            <div class="section card">
+                <div class="card-header">
+                    <h3 class="card-title">Disk Usage</h3>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead class="bg-gray-50 dark:bg-gray-900">
+                <div class="table-wrap">
+                    <table class="table table--compact">
+                        <thead>
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Mount</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Device</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider w-1/4">Usage</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Used</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total</th>
+                                <th>Mount</th>
+                                <th>Device</th>
+                                <th class="col-usage">Usage</th>
+                                <th class="num">Used</th>
+                                <th class="num">Total</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody>
                             @foreach($systemMetrics['storage'] as $mount)
                                 @php
                                     $diskPercent = $mount['used_percent'];
-                                    $diskBarColor = $diskPercent > 90 ? 'bg-red-500' : ($diskPercent > 75 ? 'bg-yellow-500' : 'bg-green-500');
+                                    $diskBarColor = $diskPercent > 90 ? 'bar-fill--critical' : ($diskPercent > 75 ? 'bar-fill--warning' : 'bar-fill--ok');
                                 @endphp
                                 <tr>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                    <td class="cell-strong">
                                         {{ $mount['mountpoint'] }}
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                    <td>
                                         {{ $mount['device'] }}
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                                <div class="{{ $diskBarColor }} h-2 rounded-full" style="width: {{ min($diskPercent, 100) }}%"></div>
+                                    <td>
+                                        <div class="meter">
+                                            <div class="bar">
+                                                <div class="bar-fill {{ $diskBarColor }}" style="width: {{ min($diskPercent, 100) }}%"></div>
                                             </div>
-                                            <span class="text-sm font-medium text-gray-900 dark:text-white w-12 text-right">{{ $diskPercent }}%</span>
+                                            <span class="meter-value row-value">{{ $diskPercent }}%</span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                                    <td class="num">
                                         {{ number_format($mount['used_bytes'] / 1073741824, 1) }} GB
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                                    <td class="num">
                                         {{ number_format($mount['total_bytes'] / 1073741824, 1) }} GB
                                     </td>
                                 </tr>
@@ -252,36 +486,36 @@
 
         {{-- Network Table --}}
         @if(isset($systemMetrics['network']) && $systemMetrics['network'])
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-8">
-                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Network Interfaces</h3>
+            <div class="section card">
+                <div class="card-header">
+                    <h3 class="card-title">Network Interfaces</h3>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead class="bg-gray-50 dark:bg-gray-900">
+                <div class="table-wrap">
+                    <table class="table table--compact">
+                        <thead>
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Interface</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Received</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Sent</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">RX Errors</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">TX Errors</th>
+                                <th>Interface</th>
+                                <th>Status</th>
+                                <th class="num">Received</th>
+                                <th class="num">Sent</th>
+                                <th class="num">RX Errors</th>
+                                <th class="num">TX Errors</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody>
                             @foreach($systemMetrics['network'] as $iface)
                                 <tr>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                                    <td class="cell-strong">
                                         {{ $iface['name'] }}
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap">
+                                    <td>
                                         @if($iface['is_up'])
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">up</span>
+                                            <span class="badge is-ok">up</span>
                                         @else
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">down</span>
+                                            <span class="badge is-unknown">down</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                                    <td class="num">
                                         @if($iface['rx_bytes'] > 1073741824)
                                             {{ number_format($iface['rx_bytes'] / 1073741824, 2) }} GB
                                         @elseif($iface['rx_bytes'] > 1048576)
@@ -290,7 +524,7 @@
                                             {{ number_format($iface['rx_bytes'] / 1024, 1) }} KB
                                         @endif
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                                    <td class="num">
                                         @if($iface['tx_bytes'] > 1073741824)
                                             {{ number_format($iface['tx_bytes'] / 1073741824, 2) }} GB
                                         @elseif($iface['tx_bytes'] > 1048576)
@@ -299,10 +533,10 @@
                                             {{ number_format($iface['tx_bytes'] / 1024, 1) }} KB
                                         @endif
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                                    <td class="num">
                                         {{ number_format($iface['rx_errors']) }}
                                     </td>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right">
+                                    <td class="num">
                                         {{ number_format($iface['tx_errors']) }}
                                     </td>
                                 </tr>
@@ -316,42 +550,42 @@
         {{-- Container Info --}}
         @if(isset($systemMetrics['container']) && $systemMetrics['container'])
             @php $c = $systemMetrics['container']; @endphp
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-8 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Container</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4">
+            <div class="section card card-body">
+                <h3 class="card-title">Container</h3>
+                <div class="facts facts--3 facts--wide">
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">Cgroup</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $c['cgroup_version'] }}</p>
+                        <span class="fact-label">Cgroup</span>
+                        <p class="fact-value">{{ $c['cgroup_version'] }}</p>
                     </div>
                     @if($c['cpu_quota'])
                         <div>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">CPU Limit</span>
-                            <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                            <span class="fact-label">CPU Limit</span>
+                            <p class="fact-value">
                                 {{ $c['cpu_quota'] }} cores
                                 @if($c['host_cpu_cores'])
-                                    <span class="text-xs font-normal text-gray-400 dark:text-gray-500">/ {{ $c['host_cpu_cores'] }} host</span>
+                                    <span class="fact-note">/ {{ $c['host_cpu_cores'] }} host</span>
                                 @endif
                             </p>
                         </div>
                     @endif
                     @if($c['memory_limit_bytes'])
                         <div>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">Memory Limit</span>
-                            <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                            <span class="fact-label">Memory Limit</span>
+                            <p class="fact-value">
                                 {{ number_format($c['memory_limit_bytes'] / 1048576) }} MB
                                 @if($c['host_memory_bytes'])
-                                    <span class="text-xs font-normal text-gray-400 dark:text-gray-500">/ {{ number_format($c['host_memory_bytes'] / 1073741824, 1) }} GB host</span>
+                                    <span class="fact-note">/ {{ number_format($c['host_memory_bytes'] / 1073741824, 1) }} GB host</span>
                                 @endif
                             </p>
                         </div>
                     @endif
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">CPU Throttled</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ number_format($c['cpu_throttled_count'] ?? 0) }}</p>
+                        <span class="fact-label">CPU Throttled</span>
+                        <p class="fact-value">{{ number_format($c['cpu_throttled_count'] ?? 0) }}</p>
                     </div>
                     <div>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 uppercase">OOM Kills</span>
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $c['oom_kill_count'] ?? 0 }}</p>
+                        <span class="fact-label">OOM Kills</span>
+                        <p class="fact-value">{{ $c['oom_kill_count'] ?? 0 }}</p>
                     </div>
                 </div>
             </div>
@@ -359,7 +593,7 @@
 
         {{-- Uptime --}}
         @if(isset($systemMetrics['uptime']) && $systemMetrics['uptime'])
-            <div class="text-center text-sm text-gray-500 dark:text-gray-400">
+            <div class="footer">
                 Uptime: {{ $systemMetrics['uptime']['human_readable'] }}
             </div>
         @endif

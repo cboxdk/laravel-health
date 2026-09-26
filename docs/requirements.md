@@ -1,7 +1,7 @@
 ---
 title: Requirements
 description: Runtime requirements enforced by the package's composer constraints.
-weight: 4
+weight: 3
 ---
 
 # Requirements
@@ -12,14 +12,25 @@ enforces — nothing more.
 
 ## PHP
 
-- **PHP `^8.3`** — PHP 8.3 or newer.
+- **PHP `^8.4`** — PHP 8.4 or newer.
 
 ## Laravel
 
-- **`illuminate/contracts` `^11.0 | ^12.0 | ^13.0`** — Laravel 11, 12, or 13.
+- **Laravel 12 or 13** — the package requires the `illuminate/*` components below at
+  `^12.0 || ^13.0`.
 
 ## Direct dependencies
 
 - **`cboxdk/system-metrics` `^3.0`** — system metrics collection (CPU, memory, disk,
   network) and container-aware cgroup detection.
-- **`spatie/laravel-package-tools` `^1.16`** — package service-provider scaffolding.
+- **`illuminate/console`, `illuminate/contracts`, `illuminate/http`,
+  `illuminate/routing`, `illuminate/support`, `illuminate/view`** `^12.0 || ^13.0` —
+  the Laravel components the package uses.
+
+The package has no other runtime dependencies. Projects on Laravel 11 or PHP 8.3 stay
+on the `2.0.x` line; see the [upgrade guide](../UPGRADING.md).
+
+## Related Documentation
+
+- [Installation](getting-started/installation.md)
+- [Changelog](../CHANGELOG.md)

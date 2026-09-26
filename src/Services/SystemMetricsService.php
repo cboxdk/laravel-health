@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Services;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\SystemMetrics\DTO\Metrics\Container\ContainerLimits;
 use Cbox\SystemMetrics\DTO\Metrics\LoadAverageSnapshot;
 use Cbox\SystemMetrics\DTO\Metrics\Memory\MemorySnapshot;
@@ -39,7 +40,7 @@ class SystemMetricsService
             'containerized' => $overview->environment->containerization->insideContainer,
         ];
 
-        if (config('health.metrics.system.load', true) && $overview->loadAverage !== null) {
+        if (TypedConfig::boolean('health.metrics.system.load', true) && $overview->loadAverage !== null) {
             $metrics['load'] = [
                 'load_1m' => $overview->loadAverage->oneMinute,
                 'load_5m' => $overview->loadAverage->fiveMinutes,
@@ -48,15 +49,15 @@ class SystemMetricsService
             ];
         }
 
-        if (config('health.metrics.system.memory', true)) {
+        if (TypedConfig::boolean('health.metrics.system.memory', true)) {
             $metrics['memory'] = $this->buildMemory($overview);
         }
 
-        if (config('health.metrics.system.storage', true) && $overview->storage !== null) {
+        if (TypedConfig::boolean('health.metrics.system.storage', true) && $overview->storage !== null) {
             $metrics['storage'] = $this->buildStorage($overview->storage);
         }
 
-        if (config('health.metrics.system.network', true) && $overview->network !== null) {
+        if (TypedConfig::boolean('health.metrics.system.network', true) && $overview->network !== null) {
             $metrics['network'] = $this->buildNetwork($overview->network);
         }
 

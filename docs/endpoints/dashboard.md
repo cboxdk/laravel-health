@@ -1,12 +1,12 @@
 ---
 title: Dashboard
 description: HTML health status dashboard.
-weight: 34
+weight: 54
 ---
 
 # Dashboard
 
-Health for Laravel includes an optional HTML dashboard at `/health/ui` showing real-time health status and system metrics.
+Health for Laravel includes an optional HTML dashboard at `/health/ui` showing the current health status and system metrics.
 
 ## Enable the Dashboard
 
@@ -22,9 +22,20 @@ The dashboard is disabled by default. Enable it in `config/health.php`:
 
 - Hostname displayed in the header — identifies which host served the page
 - Liveness and readiness check results with status indicators
-- System metrics overview (CPU, memory, disk, network)
-- Auto-refreshing display (10s interval)
+- System info, CPU load, memory, disk usage, network interfaces, container limits and uptime (subject to the `metrics.system` toggles)
+- Reloads itself every 10 seconds
+- No external assets: the CSS and the refresh script are inline, and nothing is loaded from a CDN
 - Works with token and IP authentication
+
+## Customizing the View
+
+Publish the view to change the template:
+
+```bash
+php artisan vendor:publish --tag="health-views"
+```
+
+The template is copied to `resources/views/vendor/health/dashboard.blade.php`.
 
 ## Single-Host Environments
 
@@ -40,8 +51,10 @@ The dashboard respects the same security configuration as other endpoints. If yo
 /health/ui?token=your-secret-token
 ```
 
+The auto-refresh reloads the same URL, so the token stays in place. Keep in mind that a token in the URL can end up in browser history and access logs.
+
 ## Related Documentation
 
 - [Endpoints Overview](_index.md)
-- [Security](../advanced/security.md)
-- [Configuration](../configuration.md)
+- [Endpoint Security](../security/endpoint-security.md)
+- [Configuration Reference](../configuration/reference.md)

@@ -1,7 +1,7 @@
 ---
 title: Database Check
 description: Verify database connectivity.
-weight: 11
+weight: 41
 ---
 
 # Database Check
@@ -36,4 +36,4 @@ use Cbox\LaravelHealth\Checks\DatabaseCheck;
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)

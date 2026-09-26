@@ -1,12 +1,12 @@
 ---
 title: Prometheus Metrics
 description: Prometheus-compatible metrics endpoint.
-weight: 32
+weight: 52
 ---
 
 # Prometheus Metrics
 
-The `/health/metrics` endpoint returns OpenMetrics-compatible output for Prometheus scraping.
+The `/health/metrics` endpoint returns metrics in the Prometheus text exposition format (`Content-Type: text/plain; version=0.0.4`) for scraping.
 
 ## Configuration
 
@@ -19,7 +19,9 @@ The `/health/metrics` endpoint returns OpenMetrics-compatible output for Prometh
 ],
 ```
 
-The `namespace` prefixes all metric names. Default: `app`.
+The `namespace` prefixes all metric names. Default: `app`. It must match `^[a-zA-Z_][a-zA-Z0-9_]*$`; anything else throws an `InvalidConfigurationException` (see [Configuration Reference](../configuration/reference.md#validation)).
+
+Set `HEALTH_PROMETHEUS_ENABLED=false` to remove the endpoint entirely. The JSON metrics endpoint is not affected.
 
 ## Health Check Metrics
 
@@ -27,6 +29,8 @@ The `namespace` prefixes all metric names. Default: `app`.
 |--------|------|--------|-------------|
 | `{ns}_health_check_status` | gauge | `check` | 1.0 = ok, 0.5 = warning, 0.0 = critical/unknown |
 | `{ns}_health_check_duration_seconds` | gauge | `check` | Check execution time |
+
+The health check metrics cover the liveness and readiness checks. A check that appears on both endpoints is reported once, and startup checks are not included. Reports come from the [cache](../core-concepts/caching.md) when it is enabled.
 
 ## System Metrics
 
@@ -45,9 +49,11 @@ The `namespace` prefixes all metric names. Default: `app`.
 | `{ns}_system_network_tx_bytes_total` | counter | `interface` | Bytes transmitted |
 | `{ns}_system_uptime_seconds` | gauge | — | System uptime |
 
+Inside a container, the memory metrics use the cgroup limit and usage when available (see [System Metrics](../core-concepts/system-metrics.md)).
+
 ## Container Metrics
 
-When running inside a container, additional metrics are exposed:
+When running inside a container, additional metrics are exposed (each one only when the value is available):
 
 | Metric | Type | Description |
 |--------|------|-------------|
@@ -63,7 +69,9 @@ When running inside a container, additional metrics are exposed:
 scrape_configs:
   - job_name: 'laravel'
     metrics_path: '/health/metrics'
-    bearer_token: 'your-secret-token'
+    authorization:
+      type: Bearer
+      credentials: 'your-secret-token'
     static_configs:
       - targets: ['your-app:80']
 ```
@@ -75,7 +83,6 @@ Toggle individual system metric groups in `config/health.php`:
 ```php
 'metrics' => [
     'system' => [
-        'cpu'     => true,
         'memory'  => true,
         'load'    => true,
         'storage' => false,
@@ -88,4 +95,4 @@ Toggle individual system metric groups in `config/health.php`:
 
 - [Endpoints Overview](_index.md)
 - [JSON Metrics](json-metrics.md)
-- [System Metrics Integration](../advanced/system-metrics-integration.md)
+- [System Metrics](../core-concepts/system-metrics.md)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Checks;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Illuminate\Support\Facades\Queue;
 use Throwable;
@@ -13,8 +14,7 @@ final class QueueCheck extends BaseCheck
     public function run(): CheckResult
     {
         try {
-            /** @var string|null $connection */
-            $connection = config('health.checks_config.queue.connection');
+            $connection = TypedConfig::nullableString('health.checks_config.queue.connection');
 
             $size = Queue::connection($connection)->size();
 

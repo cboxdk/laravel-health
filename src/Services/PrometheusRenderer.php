@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Services;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\HealthReport;
 use Cbox\SystemMetrics\DTO\SystemOverview;
 
@@ -87,7 +88,7 @@ final class PrometheusRenderer
     /** @param list<string> $lines */
     private function renderLoadMetrics(array &$lines, SystemOverview $overview): void
     {
-        if (! config('health.metrics.system.load', true)) {
+        if (! TypedConfig::boolean('health.metrics.system.load', true)) {
             return;
         }
 
@@ -111,7 +112,7 @@ final class PrometheusRenderer
     /** @param list<string> $lines */
     private function renderMemoryMetrics(array &$lines, SystemOverview $overview): void
     {
-        if (! config('health.metrics.system.memory', true)) {
+        if (! TypedConfig::boolean('health.metrics.system.memory', true)) {
             return;
         }
 
@@ -147,7 +148,7 @@ final class PrometheusRenderer
     /** @param list<string> $lines */
     private function renderStorageMetrics(array &$lines, SystemOverview $overview): void
     {
-        if (! config('health.metrics.system.storage', true)) {
+        if (! TypedConfig::boolean('health.metrics.system.storage', true)) {
             return;
         }
 
@@ -184,7 +185,7 @@ final class PrometheusRenderer
     /** @param list<string> $lines */
     private function renderNetworkMetrics(array &$lines, SystemOverview $overview): void
     {
-        if (! config('health.metrics.system.network', true)) {
+        if (! TypedConfig::boolean('health.metrics.system.network', true)) {
             return;
         }
 

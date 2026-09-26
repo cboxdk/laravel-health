@@ -1,7 +1,7 @@
 ---
 title: Queue Check
 description: Report queue size.
-weight: 13
+weight: 43
 ---
 
 # Queue Check
@@ -37,4 +37,4 @@ use Cbox\LaravelHealth\Checks\QueueCheck;
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)

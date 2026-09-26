@@ -1,7 +1,7 @@
 ---
 title: Disk Space Check
 description: Monitor disk usage per mount point.
-weight: 20
+weight: 50
 ---
 
 # Disk Space Check
@@ -31,11 +31,12 @@ use Cbox\LaravelHealth\Checks\DiskSpaceCheck;
 ## Behavior
 
 - Reads storage metrics for all mount points via [cboxdk/system-metrics](https://github.com/cboxdk/system-metrics)
-- Returns `critical` when any mount point exceeds `disk_space_percent`
+- Returns `critical` when any mount point reaches or exceeds `disk_space_percent`
+- Returns `unknown` when storage metrics can't be read
 - Metadata: `threshold`, `critical_mounts` (list of mounts exceeding threshold)
 
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
 - [CPU Check](cpu.md)
-- [System Metrics Integration](../advanced/system-metrics-integration.md)
+- [System Metrics](../core-concepts/system-metrics.md)

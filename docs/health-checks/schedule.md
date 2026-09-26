@@ -1,7 +1,7 @@
 ---
 title: Schedule Check
 description: Verify the task scheduler is running.
-weight: 17
+weight: 47
 ---
 
 # Schedule Check
@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('health:heartbeat')->everyMinute();
 ```
+
+The command writes the current time to the default cache store under `health:schedule:heartbeat` for 10 minutes. The check reads the same key from the default store, so every server running the check must share that store with the server running the scheduler.
 
 Or if you prefer a manual approach:
 
@@ -51,13 +53,13 @@ use Cbox\LaravelHealth\Checks\ScheduleCheck;
 
 ## Behavior
 
-- Reads the heartbeat timestamp from cache
+- Reads the heartbeat timestamp from the default cache store
 - Returns `warning` if no heartbeat is found
-- Returns `critical` if the heartbeat is older than `max_age_minutes`
-- Returns `ok` when the heartbeat is fresh
-- Includes `age_minutes` and `max_age_minutes` in metadata
+- Returns `critical` if the cached value is not a timestamp (a `DateTimeInterface`, such as `now()`)
+- Returns `critical` if the heartbeat is more than `max_age_minutes` old, with `age_minutes` and `max_age_minutes` in metadata
+- Returns `ok` when the heartbeat is fresh, with `age_minutes` in metadata
 
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)

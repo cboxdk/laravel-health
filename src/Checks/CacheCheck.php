@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Checks;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Throwable;
 
 final class CacheCheck extends BaseCheck
@@ -13,10 +15,9 @@ final class CacheCheck extends BaseCheck
     public function run(): CheckResult
     {
         try {
-            /** @var string|null $store */
-            $store = config('health.checks_config.cache.store');
+            $store = TypedConfig::nullableString('health.checks_config.cache.store');
 
-            $key = 'health_check_'.bin2hex(random_bytes(8));
+            $key = 'health_check_'.Str::random(16);
             $value = 'health_check_value';
 
             $cache = Cache::store($store);

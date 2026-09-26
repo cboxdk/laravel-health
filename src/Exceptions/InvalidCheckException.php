@@ -6,7 +6,7 @@ namespace Cbox\LaravelHealth\Exceptions;
 
 use InvalidArgumentException;
 
-final class InvalidCheckException extends InvalidArgumentException
+final class InvalidCheckException extends InvalidArgumentException implements HealthException
 {
     public static function notImplementingContract(string $class): self
     {

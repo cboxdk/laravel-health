@@ -29,8 +29,8 @@ COPY laravel-health /packages/laravel-health
 COPY system-metrics /packages/system-metrics
 
 # Add path repositories with version overrides and require the package
-RUN composer config repositories.system-metrics '{"type": "path", "url": "/packages/system-metrics", "options": {"versions": {"cboxdk/system-metrics": "2.1.99"}}}' --json \
-    && composer config repositories.laravel-health '{"type": "path", "url": "/packages/laravel-health", "options": {"versions": {"cboxdk/laravel-health": "1.0.99"}}}' --json \
+RUN composer config repositories.system-metrics '{"type": "path", "url": "/packages/system-metrics", "options": {"versions": {"cboxdk/system-metrics": "3.99.99"}}}' --json \
+    && composer config repositories.laravel-health '{"type": "path", "url": "/packages/laravel-health", "options": {"versions": {"cboxdk/laravel-health": "3.99.99"}}}' --json \
     && composer require cboxdk/laravel-health:@dev --no-interaction
 
 # Create SQLite database

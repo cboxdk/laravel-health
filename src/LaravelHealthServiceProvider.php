@@ -7,48 +7,56 @@ namespace Cbox\LaravelHealth;
 use Cbox\LaravelHealth\Commands\HealthCheckCommand;
 use Cbox\LaravelHealth\Commands\ScheduleHeartbeatCommand;
 use Cbox\LaravelHealth\Config\HealthConfig;
+use Cbox\LaravelHealth\Contracts\RunsHealthChecks;
 use Cbox\LaravelHealth\Services\HealthCheckRunner;
 use Cbox\LaravelHealth\Services\PrometheusRenderer;
 use Cbox\LaravelHealth\Services\SystemMetricsService;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
 
-final class LaravelHealthServiceProvider extends PackageServiceProvider
+class LaravelHealthServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
-    {
-        $package
-            ->name('health')
-            ->hasConfigFile('health')
-            ->hasRoute('health')
-            ->hasViews('health')
-            ->hasCommands([
-                HealthCheckCommand::class,
-                ScheduleHeartbeatCommand::class,
-            ]);
-    }
+    private const string CONFIG = __DIR__.'/../config/health.php';
 
-    public function packageRegistered(): void
+    private const string VIEWS = __DIR__.'/../resources/views';
+
+    public function register(): void
     {
-        $this->app->singleton(HealthConfig::class, function () {
-            return HealthConfig::fromConfig();
-        });
+        $this->mergeConfigFrom(self::CONFIG, 'health');
+
+        $this->app->singleton(HealthConfig::class, fn (): HealthConfig => HealthConfig::fromConfig());
 
         $this->app->singleton(HealthCheckRunner::class);
 
+        // Consumers depend on the contract; rebind it to decorate or replace the runner.
+        $this->app->singleton(
+            RunsHealthChecks::class,
+            fn (Application $app): RunsHealthChecks => $app->make(HealthCheckRunner::class),
+        );
+
         $this->app->singleton(SystemMetricsService::class);
 
-        $this->app->singleton(PrometheusRenderer::class, function ($app) {
-            /** @var HealthConfig $config */
-            $config = $app->make(HealthConfig::class);
-
-            return new PrometheusRenderer($config->prometheusNamespace);
-        });
+        $this->app->singleton(
+            PrometheusRenderer::class,
+            fn (Application $app): PrometheusRenderer => new PrometheusRenderer($app->make(HealthConfig::class)->prometheusNamespace),
+        );
 
         $this->app->singleton(LaravelHealth::class);
+    }
 
-        $this->app->bind('health.auth', function ($app) {
-            return $app->make(LaravelHealth::class);
-        });
+    public function boot(): void
+    {
+        $this->loadRoutesFrom(__DIR__.'/../routes/health.php');
+        $this->loadViewsFrom(self::VIEWS, 'health');
+
+        $this->commands([
+            HealthCheckCommand::class,
+            ScheduleHeartbeatCommand::class,
+        ]);
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([self::CONFIG => config_path('health.php')], 'health-config');
+            $this->publishes([self::VIEWS => resource_path('views/vendor/health')], 'health-views');
+        }
     }
 }

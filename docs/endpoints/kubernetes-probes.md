@@ -1,7 +1,7 @@
 ---
 title: Kubernetes Probes
 description: Configure Kubernetes liveness, readiness, and startup probes.
-weight: 31
+weight: 51
 ---
 
 # Kubernetes Probes
@@ -106,7 +106,19 @@ If Redis goes down with this configuration: the readiness probe fails, Kubernete
 
 ## Authentication
 
-The liveness endpoint is public by default (configured in `security.public_endpoints`). For token-protected probes, pass the token as a query parameter in your probe config:
+The liveness endpoint is public by default (configured in `security.public_endpoints`). For token-protected probes, send the token as a header:
+
+```yaml
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 80
+    httpHeaders:
+      - name: Authorization
+        value: Bearer your-secret-token
+```
+
+or as a query parameter:
 
 ```yaml
 readinessProbe:
@@ -115,8 +127,10 @@ readinessProbe:
     port: 80
 ```
 
+If you set `HEALTH_ALLOWED_IPS`, it applies to every endpoint including liveness, so the kubelet's source address must be allowed. See [Endpoint Security](../security/endpoint-security.md).
+
 ## Related Documentation
 
 - [Endpoints Overview](_index.md)
 - [Health Checks](../health-checks/_index.md)
-- [Security](../advanced/security.md)
+- [Endpoint Security](../security/endpoint-security.md)

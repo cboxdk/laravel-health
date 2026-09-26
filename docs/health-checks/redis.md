@@ -1,7 +1,7 @@
 ---
 title: Redis Check
 description: Verify Redis connectivity.
-weight: 15
+weight: 45
 ---
 
 # Redis Check
@@ -37,4 +37,4 @@ use Cbox\LaravelHealth\Checks\RedisCheck;
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)

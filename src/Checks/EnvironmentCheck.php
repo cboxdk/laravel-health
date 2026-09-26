@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Checks;
 
+use Cbox\LaravelHealth\Config\TypedConfig;
 use Cbox\LaravelHealth\DataTransferObjects\CheckResult;
 
 final class EnvironmentCheck extends BaseCheck
 {
     public function run(): CheckResult
     {
-        /** @var array<int, string> $required */
-        $required = config('health.checks_config.environment.required', []);
+        $required = TypedConfig::stringList('health.checks_config.environment.required');
 
         $missing = [];
 

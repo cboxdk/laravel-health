@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cbox\LaravelHealth\Http\Controllers;
 
+use Cbox\LaravelHealth\Contracts\RunsHealthChecks;
 use Cbox\LaravelHealth\Enums\EndpointType;
-use Cbox\LaravelHealth\Services\HealthCheckRunner;
 use Cbox\LaravelHealth\Services\SystemMetricsService;
 use Illuminate\Http\JsonResponse;
 
 final class StatusController
 {
-    public function __invoke(HealthCheckRunner $runner, SystemMetricsService $metricsService): JsonResponse
+    public function __invoke(RunsHealthChecks $runner, SystemMetricsService $metricsService): JsonResponse
     {
         $liveness = $runner->run(EndpointType::Liveness);
         $readiness = $runner->run(EndpointType::Readiness);

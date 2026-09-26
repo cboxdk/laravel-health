@@ -1,11 +1,12 @@
-includes:
-    - phpstan-baseline.neon
-
 parameters:
-    level: 9
+    level: max
     paths:
         - src
+        - config
+        - routes
+        - tests/Fixtures
+    configDirectories:
+        - config
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
-    reportUnmatchedIgnoredErrors: false

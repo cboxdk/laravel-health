@@ -1,7 +1,7 @@
 ---
 title: Custom Checks
 description: Create custom health checks by implementing the HealthCheck contract.
-weight: 41
+weight: 61
 ---
 
 # Custom Checks
@@ -44,7 +44,7 @@ class PaymentGatewayCheck implements HealthCheck
     public function run(): CheckResult
     {
         try {
-            $response = Http::timeout(5)->get('https://api.stripe.com/v1/health');
+            $response = Http::timeout(5)->get('https://payments.example.com/health');
 
             if ($response->successful()) {
                 return CheckResult::ok($this->name());
@@ -63,7 +63,7 @@ class PaymentGatewayCheck implements HealthCheck
 
 ## Using the Base Class
 
-Extend `BaseCheck` to get automatic name generation from the class name:
+Extend `BaseCheck` to get automatic name generation from the class name (the `Check` suffix is dropped and the rest is converted to snake case):
 
 ```php
 <?php
@@ -78,6 +78,24 @@ class PaymentGatewayCheck extends BaseCheck
     public function run(): CheckResult
     {
         // name() automatically returns 'payment_gateway'
+        // ...
+    }
+}
+```
+
+## Dependencies
+
+Checks are built through the service container, so you can type-hint dependencies in the constructor:
+
+```php
+use Illuminate\Contracts\Cache\Repository;
+
+class FeatureFlagCheck extends BaseCheck
+{
+    public function __construct(private readonly Repository $cache) {}
+
+    public function run(): CheckResult
+    {
         // ...
     }
 }
@@ -101,6 +119,12 @@ use App\Health\PaymentGatewayCheck;
 ],
 ```
 
+## Errors
+
+You don't need to catch everything. If `run()` throws, the runner turns the exception into a `critical` result named after the check class, with the exception message. The same happens when a configured class doesn't exist, can't be built by the container, or doesn't implement `HealthCheck`. Catching exceptions yourself (as in the example above) keeps your check's own name in the report.
+
+The runner measures each check's duration and sets it on the result, so you don't need to.
+
 ## CheckResult API
 
 ```php
@@ -110,9 +134,14 @@ CheckResult::critical($name, $message = '', $metadata = []);
 CheckResult::unknown($name, $message = '', $metadata = []);
 ```
 
-The `$metadata` array is included in JSON and status responses, useful for exposing diagnostic data like queue sizes or response times.
+`warning` keeps the probe passing (`200`); `critical` and `unknown` fail it (`503`).
+
+The `$metadata` array is included in the probe and status JSON responses, useful for exposing diagnostic data like queue sizes or response times.
+
+If two checks on the same endpoint return the same name, the JSON output keys the second one as `<name>_2`, the third `<name>_3`, and so on.
 
 ## Related Documentation
 
 - [Health Checks Overview](../health-checks/_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)
+- [Replacing the Runner](replacing-the-runner.md)

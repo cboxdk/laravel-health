@@ -42,7 +42,9 @@ return [
 
     'security' => [
         'token' => env('HEALTH_TOKEN'),
-        'allowed_ips' => env('HEALTH_ALLOWED_IPS') ? array_map('trim', explode(',', env('HEALTH_ALLOWED_IPS'))) : null,
+        'allowed_ips' => is_string($allowedIps = env('HEALTH_ALLOWED_IPS')) && $allowedIps !== ''
+            ? array_map(trim(...), explode(',', $allowedIps))
+            : null,
         'public_endpoints' => ['liveness'],
     ],
 

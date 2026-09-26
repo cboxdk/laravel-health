@@ -1,7 +1,7 @@
 ---
 title: Cache Check
 description: Verify cache read/write functionality.
-weight: 12
+weight: 42
 ---
 
 # Cache Check
@@ -38,4 +38,4 @@ use Cbox\LaravelHealth\Checks\CacheCheck;
 ## Related Documentation
 
 - [Health Checks Overview](_index.md)
-- [Configuration](../configuration.md)
+- [Configuration Reference](../configuration/reference.md)

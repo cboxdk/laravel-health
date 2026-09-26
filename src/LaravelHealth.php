@@ -11,6 +11,8 @@ final class LaravelHealth
 {
     /**
      * The callback that should be used to authenticate health check users.
+     *
+     * @var (Closure(Request): bool)|null
      */
     public static ?Closure $authUsing = null;
 
@@ -26,6 +28,8 @@ final class LaravelHealth
 
     /**
      * Set the callback that should be used to authenticate health check users.
+     *
+     * @param  Closure(Request): bool  $callback
      */
     public static function auth(Closure $callback): self
     {

@@ -5,7 +5,7 @@
 [![PHPStan](https://img.shields.io/github/actions/workflow/status/cboxdk/laravel-health/phpstan.yml?branch=main&label=phpstan&style=flat-square)](https://github.com/cboxdk/laravel-health/actions?query=workflow%3Aphpstan+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/cboxdk/laravel-health.svg?style=flat-square)](https://packagist.org/packages/cboxdk/laravel-health)
 ![PHP Version](https://img.shields.io/packagist/php-v/cboxdk/laravel-health?style=flat-square)
-![Laravel Version](https://img.shields.io/badge/laravel-11.x%20|%2012.x%20|%2013.x-blue?style=flat-square)
+![Laravel Version](https://img.shields.io/badge/laravel-12.x%20|%2013.x-blue?style=flat-square)
 
 Health checks, Kubernetes probes, Prometheus metrics, and system monitoring for Laravel.
 
@@ -28,24 +28,31 @@ curl http://localhost/health
 - **HTML Dashboard** — optional real-time status UI
 - **Token & IP Auth** — protect endpoints with bearer tokens and IP allowlists
 - **Response Caching** — configurable TTL to reduce check overhead
-- **Fully Extensible** — implement `HealthCheck` contract to add custom checks
+- **Fully Extensible** — implement the `HealthCheck` contract to add checks, or rebind `RunsHealthChecks` to replace the runner
+- **Test Helpers** — `InteractsWithHealth` and `FakeHealthCheckRunner` to test your endpoints without real checks
+- **No External Assets** — the dashboard ships its own CSS; nothing is loaded from a CDN
 
 ## Requirements
 
-- PHP 8.3+
-- Laravel 11.x or 12.x
+- PHP 8.4+
+- Laravel 12.x or 13.x
 
 ## Documentation
 
-Full documentation is available in the [docs/](docs/index.md) directory.
+Full documentation is available in the [docs/](docs/index.md) directory. Upgrading from 2.x? Read [UPGRADING.md](UPGRADING.md).
 
-## Testing
+## Development
 
 ```bash
+composer qa        # code style, PHPStan (level max), tests, license check, audit
 composer test
 composer analyse
 composer format
 ```
+
+## Security
+
+Please report vulnerabilities privately; see [SECURITY.md](SECURITY.md).
 
 ## Credits
 
