@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## Unreleased
+
+### Fixed
+- `RedisCheck` no longer reports critical on every run with predis. Predis answers `PING` with a `Predis\Response\Status` object instead of a string, so the strict comparison with `PONG` always failed. The check now compares the string value of such a reply.
+
 ## 3.0.0 - 2026-09-26
 
 Breaking release; see [UPGRADING.md](UPGRADING.md).
