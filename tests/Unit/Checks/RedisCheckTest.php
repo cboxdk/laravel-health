@@ -40,6 +40,41 @@ it('passes when redis returns +PONG string', function (): void {
     expect($result->status)->toBe(Status::Ok);
 });
 
+it('passes when redis returns a status object like predis', function (): void {
+    $connection = Mockery::mock();
+    $connection->shouldReceive('command')->with('ping')->andReturn(new class implements Stringable
+    {
+        public function __toString(): string
+        {
+            return 'PONG';
+        }
+    });
+    Redis::shouldReceive('connection')->with('default')->andReturn($connection);
+
+    $check = new RedisCheck;
+    $result = $check->run();
+
+    expect($result->status)->toBe(Status::Ok);
+});
+
+it('returns critical for an unexpected status object', function (): void {
+    $connection = Mockery::mock();
+    $connection->shouldReceive('command')->with('ping')->andReturn(new class implements Stringable
+    {
+        public function __toString(): string
+        {
+            return 'LOADING';
+        }
+    });
+    Redis::shouldReceive('connection')->with('default')->andReturn($connection);
+
+    $check = new RedisCheck;
+    $result = $check->run();
+
+    expect($result->status)->toBe(Status::Critical)
+        ->and($result->message)->toContain('Unexpected ping response');
+});
+
 it('returns critical for unexpected ping response', function (): void {
     $connection = Mockery::mock();
     $connection->shouldReceive('command')->with('ping')->andReturn('UNEXPECTED');

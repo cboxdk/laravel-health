@@ -32,6 +32,7 @@ use Cbox\LaravelHealth\Checks\RedisCheck;
 
 - Sends `PING` to the configured Redis connection
 - Accepts `true`, `PONG`, or `+PONG` as valid responses
+- Compares a status object, such as the reply predis returns, by its string value
 - Returns `ok` on valid response, `critical` on failure
 
 ## Related Documentation
