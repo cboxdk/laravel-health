@@ -1,7 +1,7 @@
 {
     "bomFormat": "CycloneDX",
     "specVersion": "1.5",
-    "serialNumber": "urn:uuid:3af5d33d-8743-1466-5e25-0112e09c4b08",
+    "serialNumber": "urn:uuid:d185af3d-b32d-758f-a771-bdb1eaa37123",
     "version": 1,
     "metadata": {
         "component": {
@@ -81,10 +81,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/doctrine/inflector@2.1.0",
+            "bom-ref": "pkg:composer/doctrine/inflector@2.1.1",
             "name": "doctrine/inflector",
-            "version": "2.1.0",
-            "purl": "pkg:composer/doctrine/inflector@2.1.0",
+            "version": "2.1.1",
+            "purl": "pkg:composer/doctrine/inflector@2.1.1",
             "licenses": [
                 {
                     "license": {
@@ -96,10 +96,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/doctrine/lexer@3.0.2",
+            "bom-ref": "pkg:composer/doctrine/lexer@3.0.3",
             "name": "doctrine/lexer",
-            "version": "3.0.2",
-            "purl": "pkg:composer/doctrine/lexer@3.0.2",
+            "version": "3.0.3",
+            "purl": "pkg:composer/doctrine/lexer@3.0.3",
             "licenses": [
                 {
                     "license": {
@@ -111,10 +111,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/dragonmantank/cron-expression@v3.6.0",
+            "bom-ref": "pkg:composer/dragonmantank/cron-expression@v3.6.1",
             "name": "dragonmantank/cron-expression",
-            "version": "v3.6.0",
-            "purl": "pkg:composer/dragonmantank/cron-expression@v3.6.0",
+            "version": "v3.6.1",
+            "purl": "pkg:composer/dragonmantank/cron-expression@v3.6.1",
             "licenses": [
                 {
                     "license": {
@@ -171,10 +171,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/guzzlehttp/guzzle@8.2.0",
+            "bom-ref": "pkg:composer/guzzlehttp/guzzle@8.3.1",
             "name": "guzzlehttp/guzzle",
-            "version": "8.2.0",
-            "purl": "pkg:composer/guzzlehttp/guzzle@8.2.0",
+            "version": "8.3.1",
+            "purl": "pkg:composer/guzzlehttp/guzzle@8.3.1",
             "licenses": [
                 {
                     "license": {
@@ -186,10 +186,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/guzzlehttp/promises@3.0.2",
+            "bom-ref": "pkg:composer/guzzlehttp/promises@3.1.0",
             "name": "guzzlehttp/promises",
-            "version": "3.0.2",
-            "purl": "pkg:composer/guzzlehttp/promises@3.0.2",
+            "version": "3.1.0",
+            "purl": "pkg:composer/guzzlehttp/promises@3.1.0",
             "licenses": [
                 {
                     "license": {
@@ -201,10 +201,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/guzzlehttp/psr7@3.1.0",
+            "bom-ref": "pkg:composer/guzzlehttp/psr7@3.2.0",
             "name": "guzzlehttp/psr7",
-            "version": "3.1.0",
-            "purl": "pkg:composer/guzzlehttp/psr7@3.1.0",
+            "version": "3.2.0",
+            "purl": "pkg:composer/guzzlehttp/psr7@3.2.0",
             "licenses": [
                 {
                     "license": {
@@ -231,10 +231,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/laravel/framework@v13.33.0",
+            "bom-ref": "pkg:composer/laravel/framework@v13.39.0",
             "name": "laravel/framework",
-            "version": "v13.33.0",
-            "purl": "pkg:composer/laravel/framework@v13.33.0",
+            "version": "v13.39.0",
+            "purl": "pkg:composer/laravel/framework@v13.39.0",
             "licenses": [
                 {
                     "license": {
@@ -246,10 +246,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/laravel/prompts@v0.3.24",
+            "bom-ref": "pkg:composer/laravel/prompts@v0.3.26",
             "name": "laravel/prompts",
-            "version": "v0.3.24",
-            "purl": "pkg:composer/laravel/prompts@v0.3.24",
+            "version": "v0.3.26",
+            "purl": "pkg:composer/laravel/prompts@v0.3.26",
             "licenses": [
                 {
                     "license": {
@@ -276,10 +276,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/league/commonmark@2.10.3",
+            "bom-ref": "pkg:composer/league/commonmark@2.10.6",
             "name": "league/commonmark",
-            "version": "2.10.3",
-            "purl": "pkg:composer/league/commonmark@2.10.3",
+            "version": "2.10.6",
+            "purl": "pkg:composer/league/commonmark@2.10.6",
             "licenses": [
                 {
                     "license": {
@@ -351,10 +351,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/league/uri-interfaces@7.8.1",
+            "bom-ref": "pkg:composer/league/uri-interfaces@7.9.1",
             "name": "league/uri-interfaces",
-            "version": "7.8.1",
-            "purl": "pkg:composer/league/uri-interfaces@7.8.1",
+            "version": "7.9.1",
+            "purl": "pkg:composer/league/uri-interfaces@7.9.1",
             "licenses": [
                 {
                     "license": {
@@ -366,10 +366,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/league/uri@7.8.1",
+            "bom-ref": "pkg:composer/league/uri@7.9.1",
             "name": "league/uri",
-            "version": "7.8.1",
-            "purl": "pkg:composer/league/uri@7.8.1",
+            "version": "7.9.1",
+            "purl": "pkg:composer/league/uri@7.9.1",
             "licenses": [
                 {
                     "license": {
@@ -381,10 +381,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/monolog/monolog@3.12.0",
+            "bom-ref": "pkg:composer/monolog/monolog@3.12.1",
             "name": "monolog/monolog",
-            "version": "3.12.0",
-            "purl": "pkg:composer/monolog/monolog@3.12.0",
+            "version": "3.12.1",
+            "purl": "pkg:composer/monolog/monolog@3.12.1",
             "licenses": [
                 {
                     "license": {
@@ -396,10 +396,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/nesbot/carbon@3.14.0",
+            "bom-ref": "pkg:composer/nesbot/carbon@3.15.1",
             "name": "nesbot/carbon",
-            "version": "3.14.0",
-            "purl": "pkg:composer/nesbot/carbon@3.14.0",
+            "version": "3.15.1",
+            "purl": "pkg:composer/nesbot/carbon@3.15.1",
             "licenses": [
                 {
                     "license": {
@@ -411,10 +411,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/nette/schema@v1.3.6",
+            "bom-ref": "pkg:composer/nette/schema@v1.4.0",
             "name": "nette/schema",
-            "version": "v1.3.6",
-            "purl": "pkg:composer/nette/schema@v1.3.6",
+            "version": "v1.4.0",
+            "purl": "pkg:composer/nette/schema@v1.4.0",
             "licenses": [
                 {
                     "license": {
@@ -432,14 +432,14 @@
                     }
                 }
             ],
-            "description": "\ud83d\udcd0 Nette Schema: validating data structures against a given Schema."
+            "description": "\ud83d\udcd0 Nette Schema: validates and normalizes data such as configuration or API input against a schema described in a few readable lines of PHP, with precise error messages."
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/nette/utils@v4.1.5",
+            "bom-ref": "pkg:composer/nette/utils@v4.1.6",
             "name": "nette/utils",
-            "version": "v4.1.5",
-            "purl": "pkg:composer/nette/utils@v4.1.5",
+            "version": "v4.1.6",
+            "purl": "pkg:composer/nette/utils@v4.1.6",
             "licenses": [
                 {
                     "license": {
@@ -641,10 +641,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/clock@v8.1.0",
+            "bom-ref": "pkg:composer/symfony/clock@v8.1.9",
             "name": "symfony/clock",
-            "version": "v8.1.0",
-            "purl": "pkg:composer/symfony/clock@v8.1.0",
+            "version": "v8.1.9",
+            "purl": "pkg:composer/symfony/clock@v8.1.9",
             "licenses": [
                 {
                     "license": {
@@ -656,10 +656,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/console@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/console@v8.1.10",
             "name": "symfony/console",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/console@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/console@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -671,10 +671,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/css-selector@v8.1.6",
+            "bom-ref": "pkg:composer/symfony/css-selector@v8.1.10",
             "name": "symfony/css-selector",
-            "version": "v8.1.6",
-            "purl": "pkg:composer/symfony/css-selector@v8.1.6",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/css-selector@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -701,10 +701,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/error-handler@v8.1.5",
+            "bom-ref": "pkg:composer/symfony/error-handler@v8.1.10",
             "name": "symfony/error-handler",
-            "version": "v8.1.5",
-            "purl": "pkg:composer/symfony/error-handler@v8.1.5",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/error-handler@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -746,10 +746,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/finder@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/finder@v8.1.10",
             "name": "symfony/finder",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/finder@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/finder@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -761,10 +761,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/http-foundation@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/http-foundation@v8.1.10",
             "name": "symfony/http-foundation",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/http-foundation@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/http-foundation@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -776,10 +776,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/http-kernel@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/http-kernel@v8.1.10",
             "name": "symfony/http-kernel",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/http-kernel@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/http-kernel@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -791,10 +791,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/mailer@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/mailer@v8.1.10",
             "name": "symfony/mailer",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/mailer@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/mailer@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -806,10 +806,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/mime@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/mime@v8.1.10",
             "name": "symfony/mime",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/mime@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/mime@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -836,10 +836,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-intl-grapheme@v1.41.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-intl-grapheme@v1.43.3",
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.41.0",
-            "purl": "pkg:composer/symfony/polyfill-intl-grapheme@v1.41.0",
+            "version": "v1.43.3",
+            "purl": "pkg:composer/symfony/polyfill-intl-grapheme@v1.43.3",
             "licenses": [
                 {
                     "license": {
@@ -851,10 +851,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-intl-idn@v1.42.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-intl-idn@v1.43.0",
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.42.0",
-            "purl": "pkg:composer/symfony/polyfill-intl-idn@v1.42.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-intl-idn@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -866,10 +866,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-intl-normalizer@v1.42.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-intl-normalizer@v1.43.0",
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.42.0",
-            "purl": "pkg:composer/symfony/polyfill-intl-normalizer@v1.42.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-intl-normalizer@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -881,10 +881,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-mbstring@v1.38.2",
+            "bom-ref": "pkg:composer/symfony/polyfill-mbstring@v1.43.3",
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.38.2",
-            "purl": "pkg:composer/symfony/polyfill-mbstring@v1.38.2",
+            "version": "v1.43.3",
+            "purl": "pkg:composer/symfony/polyfill-mbstring@v1.43.3",
             "licenses": [
                 {
                     "license": {
@@ -896,10 +896,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-php80@v1.37.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-php80@v1.43.0",
             "name": "symfony/polyfill-php80",
-            "version": "v1.37.0",
-            "purl": "pkg:composer/symfony/polyfill-php80@v1.37.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-php80@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -911,10 +911,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-php82@v1.38.1",
+            "bom-ref": "pkg:composer/symfony/polyfill-php82@v1.43.0",
             "name": "symfony/polyfill-php82",
-            "version": "v1.38.1",
-            "purl": "pkg:composer/symfony/polyfill-php82@v1.38.1",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-php82@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -926,10 +926,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-php84@v1.38.1",
+            "bom-ref": "pkg:composer/symfony/polyfill-php84@v1.43.0",
             "name": "symfony/polyfill-php84",
-            "version": "v1.38.1",
-            "purl": "pkg:composer/symfony/polyfill-php84@v1.38.1",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-php84@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -941,10 +941,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-php85@v1.41.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-php85@v1.43.0",
             "name": "symfony/polyfill-php85",
-            "version": "v1.41.0",
-            "purl": "pkg:composer/symfony/polyfill-php85@v1.41.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-php85@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -956,10 +956,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-php86@v1.41.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-php86@v1.43.0",
             "name": "symfony/polyfill-php86",
-            "version": "v1.41.0",
-            "purl": "pkg:composer/symfony/polyfill-php86@v1.41.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-php86@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -971,10 +971,25 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-uuid@v1.37.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-time@v1.42.0",
+            "name": "symfony/polyfill-time",
+            "version": "v1.42.0",
+            "purl": "pkg:composer/symfony/polyfill-time@v1.42.0",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "description": "Symfony polyfill for the Time API added to PHP 8.6"
+        },
+        {
+            "type": "library",
+            "bom-ref": "pkg:composer/symfony/polyfill-uuid@v1.43.0",
             "name": "symfony/polyfill-uuid",
-            "version": "v1.37.0",
-            "purl": "pkg:composer/symfony/polyfill-uuid@v1.37.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-uuid@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -986,10 +1001,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/process@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/process@v8.1.10",
             "name": "symfony/process",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/process@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/process@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -1001,10 +1016,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/routing@v8.1.6",
+            "bom-ref": "pkg:composer/symfony/routing@v8.1.10",
             "name": "symfony/routing",
-            "version": "v8.1.6",
-            "purl": "pkg:composer/symfony/routing@v8.1.6",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/routing@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -1031,10 +1046,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/string@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/string@v8.1.10",
             "name": "symfony/string",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/string@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/string@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -1061,10 +1076,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/translation@v8.1.5",
+            "bom-ref": "pkg:composer/symfony/translation@v8.1.10",
             "name": "symfony/translation",
-            "version": "v8.1.5",
-            "purl": "pkg:composer/symfony/translation@v8.1.5",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/translation@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -1076,10 +1091,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/uid@v8.1.5",
+            "bom-ref": "pkg:composer/symfony/uid@v8.1.9",
             "name": "symfony/uid",
-            "version": "v8.1.5",
-            "purl": "pkg:composer/symfony/uid@v8.1.5",
+            "version": "v8.1.9",
+            "purl": "pkg:composer/symfony/uid@v8.1.9",
             "licenses": [
                 {
                     "license": {
@@ -1091,10 +1106,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/var-dumper@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/var-dumper@v8.1.10",
             "name": "symfony/var-dumper",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/var-dumper@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/var-dumper@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -1121,10 +1136,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/vlucas/phpdotenv@v5.7.0",
+            "bom-ref": "pkg:composer/vlucas/phpdotenv@v5.8.0",
             "name": "vlucas/phpdotenv",
-            "version": "v5.7.0",
-            "purl": "pkg:composer/vlucas/phpdotenv@v5.7.0",
+            "version": "v5.8.0",
+            "purl": "pkg:composer/vlucas/phpdotenv@v5.8.0",
             "licenses": [
                 {
                     "license": {
