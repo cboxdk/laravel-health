@@ -1,7 +1,7 @@
 {
     "bomFormat": "CycloneDX",
     "specVersion": "1.5",
-    "serialNumber": "urn:uuid:3af5d33d-8743-1466-5e25-0112e09c4b08",
+    "serialNumber": "urn:uuid:1ee8be4d-c69a-0491-f2ee-7b3dea7b3ee8",
     "version": 1,
     "metadata": {
         "component": {
@@ -461,10 +461,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/nunomaduro/termwind@v2.4.0",
+            "bom-ref": "pkg:composer/nunomaduro/termwind@v2.4.1",
             "name": "nunomaduro/termwind",
-            "version": "v2.4.0",
-            "purl": "pkg:composer/nunomaduro/termwind@v2.4.0",
+            "version": "v2.4.1",
+            "purl": "pkg:composer/nunomaduro/termwind@v2.4.1",
             "licenses": [
                 {
                     "license": {
@@ -656,10 +656,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/console@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/console@v8.1.11",
             "name": "symfony/console",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/console@v8.1.7",
+            "version": "v8.1.11",
+            "purl": "pkg:composer/symfony/console@v8.1.11",
             "licenses": [
                 {
                     "license": {
@@ -686,10 +686,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/deprecation-contracts@v3.7.1",
+            "bom-ref": "pkg:composer/symfony/deprecation-contracts@v3.8.1",
             "name": "symfony/deprecation-contracts",
-            "version": "v3.7.1",
-            "purl": "pkg:composer/symfony/deprecation-contracts@v3.7.1",
+            "version": "v3.8.1",
+            "purl": "pkg:composer/symfony/deprecation-contracts@v3.8.1",
             "licenses": [
                 {
                     "license": {
@@ -716,10 +716,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/event-dispatcher-contracts@v3.7.1",
+            "bom-ref": "pkg:composer/symfony/event-dispatcher-contracts@v3.8.1",
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v3.7.1",
-            "purl": "pkg:composer/symfony/event-dispatcher-contracts@v3.7.1",
+            "version": "v3.8.1",
+            "purl": "pkg:composer/symfony/event-dispatcher-contracts@v3.8.1",
             "licenses": [
                 {
                     "license": {
@@ -836,10 +836,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-intl-grapheme@v1.41.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-intl-grapheme@v1.43.3",
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.41.0",
-            "purl": "pkg:composer/symfony/polyfill-intl-grapheme@v1.41.0",
+            "version": "v1.43.3",
+            "purl": "pkg:composer/symfony/polyfill-intl-grapheme@v1.43.3",
             "licenses": [
                 {
                     "license": {
@@ -866,10 +866,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-intl-normalizer@v1.42.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-intl-normalizer@v1.43.0",
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.42.0",
-            "purl": "pkg:composer/symfony/polyfill-intl-normalizer@v1.42.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-intl-normalizer@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -881,10 +881,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-mbstring@v1.38.2",
+            "bom-ref": "pkg:composer/symfony/polyfill-mbstring@v1.43.3",
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.38.2",
-            "purl": "pkg:composer/symfony/polyfill-mbstring@v1.38.2",
+            "version": "v1.43.3",
+            "purl": "pkg:composer/symfony/polyfill-mbstring@v1.43.3",
             "licenses": [
                 {
                     "license": {
@@ -896,10 +896,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-php80@v1.37.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-php80@v1.43.0",
             "name": "symfony/polyfill-php80",
-            "version": "v1.37.0",
-            "purl": "pkg:composer/symfony/polyfill-php80@v1.37.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-php80@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -941,10 +941,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/polyfill-php85@v1.41.0",
+            "bom-ref": "pkg:composer/symfony/polyfill-php85@v1.43.0",
             "name": "symfony/polyfill-php85",
-            "version": "v1.41.0",
-            "purl": "pkg:composer/symfony/polyfill-php85@v1.41.0",
+            "version": "v1.43.0",
+            "purl": "pkg:composer/symfony/polyfill-php85@v1.43.0",
             "licenses": [
                 {
                     "license": {
@@ -1016,10 +1016,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/service-contracts@v3.7.3",
+            "bom-ref": "pkg:composer/symfony/service-contracts@v3.8.1",
             "name": "symfony/service-contracts",
-            "version": "v3.7.3",
-            "purl": "pkg:composer/symfony/service-contracts@v3.7.3",
+            "version": "v3.8.1",
+            "purl": "pkg:composer/symfony/service-contracts@v3.8.1",
             "licenses": [
                 {
                     "license": {
@@ -1031,10 +1031,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/string@v8.1.7",
+            "bom-ref": "pkg:composer/symfony/string@v8.1.10",
             "name": "symfony/string",
-            "version": "v8.1.7",
-            "purl": "pkg:composer/symfony/string@v8.1.7",
+            "version": "v8.1.10",
+            "purl": "pkg:composer/symfony/string@v8.1.10",
             "licenses": [
                 {
                     "license": {
@@ -1046,10 +1046,10 @@
         },
         {
             "type": "library",
-            "bom-ref": "pkg:composer/symfony/translation-contracts@v3.7.1",
+            "bom-ref": "pkg:composer/symfony/translation-contracts@v3.8.1",
             "name": "symfony/translation-contracts",
-            "version": "v3.7.1",
-            "purl": "pkg:composer/symfony/translation-contracts@v3.7.1",
+            "version": "v3.8.1",
+            "purl": "pkg:composer/symfony/translation-contracts@v3.8.1",
             "licenses": [
                 {
                     "license": {
